@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DeathAndDials — Curated Vintage Watches</title>
+  <meta name="description" content="Curated vintage and pre-owned watches for collectors who care about originality, honest condition reporting, and clear communication.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <style>
+    /* ── Hero ──────────────────────────────────────────────── */
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: calc(30px + 65px);
+    }
+    .hero__bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 50%, color-mix(in srgb, var(--color-gold) 6%, transparent), transparent),
+        radial-gradient(ellipse 60% 80% at 10% 80%, color-mix(in srgb, var(--color-gold) 3%, transparent), transparent);
+    }
+    .hero__bg-grid {
+      position: absolute; inset: 0; z-index: 0; opacity: 0.03;
+      background-image: linear-gradient(var(--color-gold) 1px, transparent 1px),
+                        linear-gradient(90deg, var(--color-gold) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero__content { position: relative; z-index: 1; padding: var(--space-16) 0; }
+    .hero__eyebrow {
+      font-size: var(--text-xs); letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--color-gold); font-weight: 500; margin-bottom: var(--space-5);
+      display: flex; align-items: center; gap: var(--space-3);
+    }
+    .hero__eyebrow::before {
+      content: ''; display: block; width: 32px; height: 1px; background: var(--color-gold);
+    }
+    .hero__heading {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 1rem + 5vw, 6rem);
+      font-weight: 500; line-height: 1.05;
+      color: var(--color-text);
+      margin-bottom: var(--space-6);
+    }
+    .hero__heading em { font-style: italic; color: var(--color-gold); }
+    .hero__sub {
+      font-size: var(--text-lg); color: var(--color-text-muted); line-height: 1.65;
+      max-width: 46ch; margin-bottom: var(--space-10);
+    }
+    .hero__actions { display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
+    .hero__image {
+      position: relative; z-index: 1;
+      display: flex; align-items: center; justify-content: flex-end;
+      padding: var(--space-16) 0;
+    }
+    .hero__watch-frame {
+      position: relative; width: min(480px, 90%);
+      aspect-ratio: 3/4;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-lg), var(--shadow-gold);
+    }
+    .hero__watch-frame img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .hero__watch-badge {
+      position: absolute; bottom: var(--space-6); left: var(--space-6);
+      background: color-mix(in srgb, var(--color-bg) 85%, transparent);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4) var(--space-5);
+      max-width: 240px;
+    }
+    .hero__watch-badge-name { font-family: var(--font-display); font-size: var(--text-lg); color: var(--color-text); }
+    .hero__watch-badge-meta { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1); letter-spacing: 0.06em; }
+    .hero__watch-badge-price { font-family: var(--font-display); font-size: var(--text-xl); color: var(--color-gold); margin-top: var(--space-2); }
+    /* Placeholder watch visual */
+    .watch-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(ellipse at center, var(--color-surface-2) 0%, var(--color-surface) 100%);
+    }
+    .watch-placeholder svg { opacity: 0.15; }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; padding: calc(30px + 65px + var(--space-12)) 0 var(--space-16); }
+      .hero__image { justify-content: center; padding: 0 0 var(--space-12); }
+      .hero__watch-frame { width: min(340px, 80vw); }
+    }
+
+    /* ── Featured section ────────────────────────────────── */
+    .section-intro { max-width: 56ch; }
+    .section-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      flex-wrap: wrap; gap: var(--space-4);
+      margin-bottom: var(--space-10);
+    }
+    .section-header h2 { font-size: var(--text-2xl); }
+
+    /* ── Why section ──────────────────────────────────────── */
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-1); }
+    .why-card {
+      background: var(--color-surface); border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl); padding: var(--space-8);
+      display: flex; flex-direction: column; gap: var(--space-4);
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .why-card:hover { border-color: color-mix(in srgb, var(--color-gold) 30%, transparent); transform: translateY(-2px); }
+    .why-card__num { font-family: var(--font-display); font-size: var(--text-3xl); color: color-mix(in srgb, var(--color-gold) 15%, transparent); line-height: 1; }
+    .why-card__title { font-family: var(--font-display); font-size: var(--text-xl); color: var(--color-text); }
+    .why-card__body { font-size: var(--text-base); color: var(--color-text-muted); line-height: 1.7; flex: 1; }
+    @media (max-width: 768px) { .why-grid { grid-template-columns: 1fr; } }
+
+    /* ── Platforms section ───────────────────────────────── */
+    .platform-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--space-4); }
+    .platform-card {
+      background: var(--color-surface); border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl); padding: var(--space-8);
+      text-align: center; display: flex; flex-direction: column;
+      align-items: center; gap: var(--space-4);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      text-decoration: none; color: inherit;
+    }
+    .platform-card:hover { border-color: color-mix(in srgb, var(--color-gold) 50%, transparent); box-shadow: var(--shadow-md); }
+    .platform-card__icon { width: 48px; height: 48px; border-radius: var(--radius-full); background: var(--color-gold-bg); display: flex; align-items: center; justify-content: center; color: var(--color-gold); }
+    .platform-card__name { font-family: var(--font-display); font-size: var(--text-lg); color: var(--color-text); }
+    .platform-card__desc { font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.6; max-width: 22ch; }
+    @media (max-width: 640px) { .platform-grid { grid-template-columns: 1fr; } }
+
+    /* ── Founder section ──────────────────────────────────── */
+    .founder-section {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: clamp(var(--space-10), 6vw, var(--space-20));
+      display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); align-items: center;
+    }
+    .founder-section__quote {
+      font-family: var(--font-display); font-style: italic;
+      font-size: var(--text-2xl); color: var(--color-text);
+      line-height: 1.25; position: relative; padding-left: var(--space-6);
+    }
+    .founder-section__quote::before {
+      content: '"'; position: absolute; left: 0; top: -0.15em;
+      font-size: 4em; color: var(--color-gold); opacity: 0.25; line-height: 1;
+    }
+    .founder-section__body { display: flex; flex-direction: column; gap: var(--space-5); }
+    .founder-section__text { font-size: var(--text-base); color: var(--color-text-muted); line-height: 1.75; }
+    @media (max-width: 768px) { .founder-section { grid-template-columns: 1fr; } }
+
+    /* ── Sell CTA band ───────────────────────────────────── */
+    .sell-band {
+      background: var(--color-gold-bg);
+      border: 1px solid color-mix(in srgb, var(--color-gold) 20%, transparent);
+      border-radius: var(--radius-xl);
+      padding: var(--space-12) var(--space-10);
+      display: flex; justify-content: space-between; align-items: center;
+      gap: var(--space-8); flex-wrap: wrap;
+    }
+    .sell-band__text h2 { font-size: var(--text-2xl); margin-bottom: var(--space-2); }
+    .sell-band__text p  { font-size: var(--text-base); color: var(--color-text-muted); max-width: 50ch; }
+  </style>
+</head>
+<body>
+
+  <!-- ── Utility bar ──────────────────────────────────── -->
+  <div class="util-bar">
+    <div class="container util-bar__inner">
+      <nav class="util-bar__links" aria-label="Marketplace links">
+        <a href="https://instagram.com/deathanddials" target="_blank" rel="noopener">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+          Instagram
+        </a>
+        <a href="#" target="_blank" rel="noopener">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.5 7.27L12 12 3.5 7.27M3.5 16.73L12 21.5l8.5-4.77M3 7.5v9a1 1 0 0 0 .5.87l8 4.5a1 1 0 0 0 1 0l8-4.5A1 1 0 0 0 21 16.5v-9a1 1 0 0 0-.5-.87l-8-4.5a1 1 0 0 0-1 0l-8 4.5A1 1 0 0 0 3 7.5z"/></svg>
+          eBay
+        </a>
+        <a href="#" target="_blank" rel="noopener">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l4-4 4 4M12 8v8"/></svg>
+          Whatnot
+        </a>
+        <a href="contact.html">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Email
+        </a>
+      </nav>
+      <span class="util-bar__note">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Inquiries answered within 24 hours
+      </span>
+    </div>
+  </div>
+
+  <!-- ── Site nav ─────────────────────────────────────── -->
+  <header class="site-nav" role="banner">
+    <div class="container site-nav__inner">
+      <a href="index.html" class="site-nav__logo" aria-label="DeathAndDials home">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="26" height="26" style="color:var(--color-gold)">
+          <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1.2"/>
+          <circle cx="16" cy="16" r="9"  stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+          <line x1="16" y1="2"  x2="16" y2="6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="16" y1="25.5" x2="16" y2="30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="2"  y1="16" x2="6.5" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="25.5" y1="16" x2="30" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="16" cy="16" r="1.8" fill="currentColor"/>
+          <line x1="16" y1="14.2" x2="16" y2="9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          <line x1="16" y1="16"   x2="20.5" y2="16" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+        </svg>
+        <span class="site-nav__logo-text">DeathAndDials</span>
+      </a>
+
+      <ul class="site-nav__links" role="list">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="inventory.html">Shop</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="sell-trade.html">Sell / Trade</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+
+      <div class="site-nav__actions">
+        <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <a href="inventory.html" class="btn btn--primary btn--sm">View Inventory</a>
+        <button class="nav-hamburger" data-menu-open aria-label="Open menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Mobile menu ──────────────────────────────────── -->
+  <div class="mobile-menu" role="dialog" aria-label="Navigation">
+    <button class="mobile-menu__close" data-menu-close aria-label="Close menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <ul class="mobile-menu__links" role="list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="inventory.html">Shop</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="sell-trade.html">Sell / Trade</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="mobile-menu__footer">
+      <a href="https://instagram.com/deathanddials" class="btn btn--outline btn--sm" target="_blank">Instagram</a>
+      <a href="#" class="btn btn--ghost btn--sm" target="_blank">eBay Store</a>
+      <a href="#" class="btn btn--ghost btn--sm" target="_blank">Whatnot</a>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ══════════════════════════════════════════════════
+         HERO
+    ═══════════════════════════════════════════════════ -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="hero__bg-grid" aria-hidden="true"></div>
+
+      <div class="container" style="display:contents">
+        <div class="hero__content" style="padding-left:clamp(var(--space-6),5vw,var(--space-16))">
+          <p class="hero__eyebrow hero-animate-1">Independent Vintage Dealer</p>
+          <h1 class="hero__heading hero-animate-2" id="hero-heading">
+            Curated<br>
+            Vintage<br>
+            <em>Watches.</em>
+          </h1>
+          <p class="hero__sub hero-animate-3">
+            Honest condition notes. Real photography. Direct communication.
+            Every listing is described with the clarity collectors deserve before they commit.
+          </p>
+          <div class="hero__actions hero-animate-4">
+            <a href="inventory.html" class="btn btn--primary btn--lg">Shop Current Inventory</a>
+            <a href="sell-trade.html" class="btn btn--outline">Sell or Trade</a>
+          </div>
+        </div>
+
+        <div class="hero__image" style="padding-right:clamp(var(--space-6),5vw,var(--space-16))">
+          <div class="hero__watch-frame hero-animate-2">
+            <div class="watch-placeholder">
+              <svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:var(--color-gold)">
+                <circle cx="80" cy="80" r="72" stroke="currentColor" stroke-width="2"/>
+                <circle cx="80" cy="80" r="56" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+                <circle cx="80" cy="80" r="40" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+                <!-- Hour markers -->
+                <line x1="80" y1="10" x2="80" y2="22" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                <line x1="80" y1="138" x2="80" y2="150" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                <line x1="10" y1="80" x2="22" y2="80" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                <line x1="138" y1="80" x2="150" y2="80" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                <line x1="29.4" y1="29.4" x2="37.9" y2="37.9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="122.1" y1="122.1" x2="130.6" y2="130.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="29.4" y1="130.6" x2="37.9" y2="122.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="122.1" y1="37.9" x2="130.6" y2="29.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <!-- Hands -->
+                <line x1="80" y1="80" x2="80" y2="36" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="80" y1="80" x2="104" y2="90" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+                <circle cx="80" cy="80" r="4" fill="currentColor"/>
+                <!-- Crown -->
+                <rect x="150" y="75" width="8" height="10" rx="2" fill="currentColor" opacity="0.6"/>
+              </svg>
+            </div>
+            <div class="hero__watch-badge">
+              <p class="hero__watch-badge-name">Featured Piece</p>
+              <p class="hero__watch-badge-meta">Vintage · Circa 1960s–1980s</p>
+              <p class="hero__watch-badge-price">On Request</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         TRUST STRIP
+    ═══════════════════════════════════════════════════ -->
+    <div class="container">
+      <div class="trust-strip" data-reveal>
+        <div class="trust-strip__item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Authenticity-first sourcing
+        </div>
+        <div class="trust-strip__item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          Transparent condition disclosures
+        </div>
+        <div class="trust-strip__item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Insured shipping on every order
+        </div>
+        <div class="trust-strip__item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Response within 24 hours
+        </div>
+        <div class="trust-strip__item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Direct, no-form communication
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════
+         FEATURED INVENTORY
+    ═══════════════════════════════════════════════════ -->
+    <section aria-labelledby="featured-heading">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <div>
+            <span class="eyebrow">Currently Available</span>
+            <h2 id="featured-heading">Featured Inventory</h2>
+          </div>
+          <a href="inventory.html" class="btn btn--outline btn--sm">View All Watches →</a>
+        </div>
+        <p class="section-intro text-muted" style="margin-bottom:var(--space-10);margin-top:calc(var(--space-3)*-1)" data-reveal>
+          A rotating selection chosen for character, condition, and collector appeal. 
+          Pieces also move through Instagram, eBay, and Whatnot — availability changes quickly.
+        </p>
+
+        <div class="inventory-grid" data-reveal-stagger>
+          <!-- Card 1 -->
+          <article class="watch-card">
+            <div class="watch-card__img">
+              <div class="watch-card__img-placeholder">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="color:var(--color-gold);opacity:0.3"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+            </div>
+            <div class="watch-card__body">
+              <div class="watch-card__meta">
+                <span class="watch-card__brand">Hamilton</span>
+                <span class="tag tag--available">Available</span>
+              </div>
+              <h3 class="watch-card__name">Thin-o-matic · Model H</h3>
+              <p class="watch-card__specs">Circa 1965 &nbsp;·&nbsp; 34mm &nbsp;·&nbsp; Auto</p>
+              <p class="watch-card__condition">"Clean original dial, unpolished case, running well. No box or papers."</p>
+              <div class="watch-card__footer">
+                <span class="watch-card__price">$485</span>
+                <a href="watch-template.html" class="btn btn--outline btn--sm">View Details</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="watch-card">
+            <div class="watch-card__img">
+              <div class="watch-card__img-placeholder">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="color:var(--color-gold);opacity:0.3"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+            </div>
+            <div class="watch-card__body">
+              <div class="watch-card__meta">
+                <span class="watch-card__brand">Enicar</span>
+                <span class="tag tag--available">Available</span>
+              </div>
+              <h3 class="watch-card__name">Sherpa Graph · Ref. 072</h3>
+              <p class="watch-card__specs">Circa 1968 &nbsp;·&nbsp; 38mm &nbsp;·&nbsp; Manual</p>
+              <p class="watch-card__condition">"Even patina across the dial, strong lug definition, light crystal scratch."</p>
+              <div class="watch-card__footer">
+                <span class="watch-card__price">$1,250</span>
+                <a href="watch-template.html" class="btn btn--outline btn--sm">View Details</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="watch-card">
+            <div class="watch-card__img">
+              <div class="watch-card__img-placeholder">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="color:var(--color-gold);opacity:0.3"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+            </div>
+            <div class="watch-card__body">
+              <div class="watch-card__meta">
+                <span class="watch-card__brand">Longines</span>
+                <span class="tag tag--hold">On Hold</span>
+              </div>
+              <h3 class="watch-card__name">Conquest · First Series</h3>
+              <p class="watch-card__specs">Circa 1954 &nbsp;·&nbsp; 35mm &nbsp;·&nbsp; Auto</p>
+              <p class="watch-card__condition">"Original sector dial with lovely tropical character. Strap is a replacement."</p>
+              <div class="watch-card__footer">
+                <span class="watch-card__price">$2,100</span>
+                <a href="watch-template.html" class="btn btn--ghost btn--sm">On Hold</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div style="text-align:center;margin-top:var(--space-10)" data-reveal>
+          <a href="inventory.html" class="btn btn--primary btn--lg">Browse All Available Watches</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         WHY DEATHANDDIALS
+    ═══════════════════════════════════════════════════ -->
+    <section aria-labelledby="why-heading" style="background:var(--color-surface-offset);border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border)">
+      <div class="container">
+        <div style="text-align:center;max-width:52ch;margin-inline:auto;margin-bottom:var(--space-12)" data-reveal>
+          <span class="eyebrow">Why Buy Here</span>
+          <h2 id="why-heading">Buying Vintage Should Feel Confident, Not Uncertain</h2>
+        </div>
+        <div class="why-grid" data-reveal-stagger>
+          <div class="why-card">
+            <span class="why-card__num">01</span>
+            <h3 class="why-card__title">Honest Condition Reports</h3>
+            <p class="why-card__body">We describe what we see — not what sounds good. Visible wear, patina, replaced parts when known, and service notes are part of every listing. Not buried after the sale.</p>
+          </div>
+          <div class="why-card">
+            <span class="why-card__num">02</span>
+            <h3 class="why-card__title">Collector-Minded Sourcing</h3>
+            <p class="why-card__body">We buy with an eye toward originality, proportion, dial aging, and long-term appeal. If a watch isn't interesting to own and wear, it doesn't make the cut.</p>
+          </div>
+          <div class="why-card">
+            <span class="why-card__num">03</span>
+            <h3 class="why-card__title">Direct Communication</h3>
+            <p class="why-card__body">Questions are part of the process. If you need extra photos, a wrist shot, or clarification on a detail, you'll get a straight answer — not a form response.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         SHOP YOUR WAY
+    ═══════════════════════════════════════════════════ -->
+    <section aria-labelledby="platforms-heading">
+      <div class="container">
+        <div style="text-align:center;max-width:52ch;margin-inline:auto;margin-bottom:var(--space-12)" data-reveal>
+          <span class="eyebrow">Multiple Channels</span>
+          <h2 id="platforms-heading">Buy Through the Channel You Trust Most</h2>
+          <p class="text-muted mt-4">Not everyone wants to buy direct from a new seller, and that's fair. DeathAndDials makes pieces available across multiple platforms.</p>
+        </div>
+        <div class="platform-grid" data-reveal-stagger>
+          <a href="contact.html" class="platform-card">
+            <div class="platform-card__icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <p class="platform-card__name">Buy Direct</p>
+            <p class="platform-card__desc">First access and direct conversation before anything goes to a platform.</p>
+            <span class="tag tag--gold" style="margin-top:auto">Inquire Now →</span>
+          </a>
+          <a href="#" class="platform-card" target="_blank" rel="noopener">
+            <div class="platform-card__icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.5 7.27L12 12 3.5 7.27M3.5 16.73L12 21.5l8.5-4.77M3 7.5v9a1 1 0 0 0 .5.87l8 4.5a1 1 0 0 0 1 0l8-4.5A1 1 0 0 0 21 16.5v-9a1 1 0 0 0-.5-.87l-8-4.5a1 1 0 0 0-1 0l-8 4.5A1 1 0 0 0 3 7.5z"/></svg>
+            </div>
+            <p class="platform-card__name">Shop on eBay</p>
+            <p class="platform-card__desc">Full platform buyer protections on the same honest listings.</p>
+            <span class="tag tag--gold" style="margin-top:auto">eBay Store →</span>
+          </a>
+          <a href="#" class="platform-card" target="_blank" rel="noopener">
+            <div class="platform-card__icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l4-4 4 4M12 8v8"/></svg>
+            </div>
+            <p class="platform-card__name">Live on Whatnot</p>
+            <p class="platform-card__desc">Real-time live drops with live Q&A on every piece before the hammer drops.</p>
+            <span class="tag tag--gold" style="margin-top:auto">Catch a Drop →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         FOUNDER NOTE
+    ═══════════════════════════════════════════════════ -->
+    <section aria-labelledby="founder-heading">
+      <div class="container">
+        <div class="founder-section" data-reveal>
+          <blockquote class="founder-section__quote">
+            Built for the collector who's been burned before.
+          </blockquote>
+          <div class="founder-section__body">
+            <span class="eyebrow">The Story</span>
+            <h2 id="founder-heading" style="font-size:var(--text-xl)">Why DeathAndDials Exists</h2>
+            <p class="founder-section__text">
+              DeathAndDials was created for people who love vintage watches but are tired of vague listings, mystery condition photos, and sellers who disappear after the sale.
+            </p>
+            <p class="founder-section__text">
+              Every piece is personally sourced, photographed, and described with a collector's eye and a dealer's responsibility. The goal is the same every time — a clean, honest transaction that's worth coming back for.
+            </p>
+            <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-top:var(--space-2)">
+              <a href="about.html" class="btn btn--outline">Read Our Story</a>
+              <a href="inventory.html" class="btn btn--ghost">Shop the Collection</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         SELL / TRADE BAND
+    ═══════════════════════════════════════════════════ -->
+    <section>
+      <div class="container">
+        <div class="sell-band" data-reveal>
+          <div class="sell-band__text">
+            <span class="eyebrow">Sell or Trade</span>
+            <h2>Have a Watch You're Ready to Move?</h2>
+            <p>DeathAndDials reviews vintage and pre-owned watches for purchase or trade. Send details and photos and we'll come back with a straight answer.</p>
+          </div>
+          <a href="sell-trade.html" class="btn btn--primary btn--lg" style="flex-shrink:0">Submit Your Watch</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ────────────────────────────────────────── -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div class="site-footer__brand">
+          <span class="site-footer__brand-name">DeathAndDials</span>
+          <p class="site-footer__brand-desc">Independent vintage watch dealer. Collector-minded sourcing, honest descriptions, direct communication.</p>
+          <nav class="site-footer__social" aria-label="Social links">
+            <a href="https://instagram.com/deathanddials" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+            </a>
+            <a href="#" target="_blank" rel="noopener" aria-label="eBay store">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.5 7.27L12 12 3.5 7.27M3.5 16.73L12 21.5l8.5-4.77"/></svg>
+            </a>
+            <a href="#" target="_blank" rel="noopener" aria-label="Whatnot">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l4-4 4 4M12 8v8"/></svg>
+            </a>
+          </nav>
+        </div>
+        <div class="site-footer__col">
+          <h4>Shop</h4>
+          <ul role="list">
+            <li><a href="inventory.html">Current Inventory</a></li>
+            <li><a href="inventory.html">New Arrivals</a></li>
+            <li><a href="sell-trade.html">Sell or Trade</a></li>
+          </ul>
+        </div>
+        <div class="site-footer__col">
+          <h4>Info</h4>
+          <ul role="list">
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="site-footer__col">
+          <h4>Policies</h4>
+          <ul role="list">
+            <li><a href="shipping.html">Shipping Policy</a></li>
+            <li><a href="returns.html">Returns &amp; Refunds</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="site-footer__bottom">
+        <span>© 2026 DeathAndDials. All rights reserved.</span>
+        <nav class="site-footer__bottom-links" aria-label="Legal links">
+          <a href="shipping.html">Shipping</a>
+          <a href="returns.html">Returns</a>
+          <a href="faq.html">FAQ</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+<script data-pplx-inline-edit>
+(function () {
+  if (window === window.top) return;
+
+  const allowedParentOrigins = ["https://www.perplexity.ai","https://perplexity.ai","https://testing.perplexity.ai","https://staging.perplexity.ai","https://*.preview.i.perplexity.ai","http://localhost:3000","http://127.0.0.1:3000","http://localhost:5173","http://127.0.0.1:5173"];
+  const MAX_FONT_BYTES = 500 * 1024;
+  const MAX_TOTAL_FONT_BYTES = 2 * 1024 * 1024;
+  let scrollForwarding = false;
+  let scrollRaf = 0;
+  let trustedTopOrigin = null;
+
+  // Allow entries like "https://*.preview.i.perplexity.ai" — the wildcard
+  // matches a single DNS label (no dots), so "https://*.foo" cannot stretch
+  // across multiple labels.
+  function matchesAllowedOrigin(origin) {
+    if (!origin) return false;
+    for (const entry of allowedParentOrigins) {
+      if (!entry.includes("*")) {
+        if (entry === origin) return true;
+        continue;
+      }
+      const pattern = new RegExp(
+        "^" +
+          entry.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^.]+") +
+          "$",
+      );
+      if (pattern.test(origin)) return true;
+    }
+    return false;
+  }
+
+  // Trust decision: when the sender is same-origin-visible (event.origin is a
+  // real origin like https://www.perplexity.ai) we trust event.origin directly.
+  // When event.origin is "null" (opaque broker srcdoc), we fall back to the
+  // broker's stamped `parentOrigin` to identify the top window. The fallback
+  // is claim-only — we rely on the browser's native `targetOrigin` enforcement
+  // on the response path (see postToTrustedTop) to ensure replies can't be
+  // delivered to anyone but the actual top window of that claimed origin.
+  function getTrustedParentOrigin(event) {
+    const forwardedParentOrigin =
+      typeof event.data.parentOrigin === "string" ? event.data.parentOrigin : null;
+    const parentOrigin = event.origin === "null" ? forwardedParentOrigin : event.origin;
+    return matchesAllowedOrigin(parentOrigin) ? parentOrigin : null;
+  }
+
+  // All responses go to window.top with targetOrigin = the allowlisted origin.
+  // An attacker that iframes us inside their own null-origin broker can claim
+  // any parentOrigin they like, but the browser will drop the reply whenever
+  // the real top's origin doesn't match — so the screenshot never leaves.
+  function postToTrustedTop(message) {
+    if (!trustedTopOrigin) return;
+    try {
+      window.top.postMessage(message, trustedTopOrigin);
+    } catch (_error) {}
+  }
+
+  function inlineAll(original, clone) {
+    if (original.nodeType !== 1 || clone.nodeType !== 1) return;
+
+    try {
+      const computedStyle = getComputedStyle(original);
+      // cssText on a computed style is the serialized declaration in modern
+      // Chromium/Safari — a single read beats enumerating ~400 longhand
+      // properties. Firefox returns "" here, so we fall back on empty.
+      const serialized = computedStyle.cssText;
+      if (serialized) {
+        clone.style.cssText = serialized;
+      } else {
+        const parts = new Array(computedStyle.length);
+        for (let index = 0; index < computedStyle.length; index += 1) {
+          const property = computedStyle[index];
+          parts[index] = `${property}:${computedStyle.getPropertyValue(property)};`;
+        }
+        clone.style.cssText = parts.join("");
+      }
+    } catch (_error) {}
+
+    const originalChildren = original.children;
+    const clonedChildren = clone.children;
+    for (
+      let index = 0;
+      index < originalChildren.length && index < clonedChildren.length;
+      index += 1
+    ) {
+      inlineAll(originalChildren[index], clonedChildren[index]);
+    }
+  }
+
+  function extractFontUrl(srcValue) {
+    const matches = [
+      ...srcValue.matchAll(
+        /url\(["']?([^"')]+)["']?\)(?:\s*format\(["']?([^"')]+)["']?\))?/gi,
+      ),
+    ];
+    if (matches.length === 0) return null;
+    const woff2 = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff2"));
+    if (woff2) return woff2[1];
+    const woff = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff"));
+    if (woff) return woff[1];
+    return matches[0][1];
+  }
+
+  // Cache resolved font URL -> data URI across captures. Fonts on a page
+  // essentially never change, and a batch run emits multiple captures back to
+  // back — without this we'd refetch + re-base64 every time.
+  const fontDataUriCache = new Map();
+  const SRC_DECLARATION_RE = /src\s*:\s*[^;}]+/i;
+
+  async function fetchAsDataUri(url) {
+    if (fontDataUriCache.has(url)) return fontDataUriCache.get(url);
+    let dataUri = null;
+    try {
+      const response = await fetch(url, { mode: "cors", credentials: "omit" });
+      if (response.ok) {
+        const blob = await response.blob();
+        if (blob.size <= MAX_FONT_BYTES) {
+          dataUri = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () =>
+              resolve(typeof reader.result === "string" ? reader.result : null);
+            reader.onerror = () => resolve(null);
+            reader.readAsDataURL(blob);
+          });
+        }
+      }
+    } catch (_error) {
+      dataUri = null;
+    }
+    fontDataUriCache.set(url, dataUri);
+    return dataUri;
+  }
+
+  function collectFontFaceRuleTexts() {
+    const rules = [];
+    for (const sheet of document.styleSheets) {
+      let cssRules;
+      try {
+        cssRules = sheet.cssRules;
+      } catch (_error) {
+        continue;
+      }
+      if (!cssRules) continue;
+      for (const rule of cssRules) {
+        const cssText = rule.cssText || "";
+        if (cssText.startsWith("@font-face")) rules.push(cssText);
+      }
+    }
+    return rules;
+  }
+
+  async function buildInlinedFontCss() {
+    const ruleTexts = collectFontFaceRuleTexts();
+    if (ruleTexts.length === 0) return null;
+
+    const resolved = ruleTexts.map((cssText) => {
+      if (!SRC_DECLARATION_RE.test(cssText)) return null;
+      const srcMatch = cssText.match(/src\s*:\s*([^;}]+)[;}]/i);
+      if (!srcMatch) return null;
+      const url = extractFontUrl(srcMatch[1]);
+      if (!url) return null;
+      try {
+        return { cssText, url: new URL(url, document.baseURI).href };
+      } catch (_error) {
+        return null;
+      }
+    });
+
+    const dataUris = await Promise.all(
+      resolved.map((entry) => (entry ? fetchAsDataUri(entry.url) : Promise.resolve(null))),
+    );
+
+    const inlined = [];
+    let totalBytes = 0;
+    for (let index = 0; index < resolved.length; index += 1) {
+      const entry = resolved[index];
+      const dataUri = dataUris[index];
+      if (!entry || !dataUri) continue;
+      const approxBytes = dataUri.length * 0.75;
+      if (totalBytes + approxBytes > MAX_TOTAL_FONT_BYTES) break;
+      totalBytes += approxBytes;
+      inlined.push(entry.cssText.replace(SRC_DECLARATION_RE, `src: url("${dataUri}")`));
+    }
+    return inlined.length > 0 ? inlined.join("\n") : null;
+  }
+
+  function stripExternal(clone) {
+    const images = clone.querySelectorAll("img");
+    for (let index = 0; index < images.length; index += 1) {
+      const src = images[index].getAttribute("src");
+      if (src && !src.startsWith("data:")) images[index].removeAttribute("src");
+    }
+
+    const elements = clone.querySelectorAll("*");
+    for (let index = 0; index < elements.length; index += 1) {
+      const style = elements[index].style.cssText;
+      if (style && style.includes("url(")) {
+        elements[index].style.cssText = style.replace(
+          /url\(["']?(?!data:)[^)"']*["']?\)/gi,
+          "none",
+        );
+      }
+    }
+  }
+
+  function emitScroll() {
+    scrollRaf = 0;
+    if (!scrollForwarding) return;
+    postToTrustedTop({
+      type: "INLINE_EDIT_SCROLL",
+      scrollX: window.scrollX,
+      scrollY: window.scrollY,
+    });
+  }
+
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (!scrollForwarding || scrollRaf) return;
+      scrollRaf = requestAnimationFrame(emitScroll);
+    },
+    { passive: true, capture: true },
+  );
+
+  async function handleCaptureRequest(event) {
+    const requestId = event.data.requestId;
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    function postResult(dataUrl) {
+      postToTrustedTop({
+        type: "INLINE_EDIT_SCREENSHOT_RESULT",
+        requestId,
+        dataUrl,
+        scrollX,
+        scrollY,
+      });
+    }
+
+    try {
+      // Wait for any pending web fonts to resolve so both inline metrics and
+      // the @font-face inlining below see the same loaded faces.
+      if (document.fonts && document.fonts.ready) {
+        try {
+          await document.fonts.ready;
+        } catch (_error) {}
+      }
+
+      const clone = document.documentElement.cloneNode(true);
+      inlineAll(document.documentElement, clone);
+
+      const removedNodes = clone.querySelectorAll("script,link[rel=\"stylesheet\"],style");
+      for (let index = 0; index < removedNodes.length; index += 1) {
+        removedNodes[index].remove();
+      }
+
+      stripExternal(clone);
+
+      // Re-embed web fonts as data-URI @font-face rules so the SVG rasterizer
+      // can resolve them — external font URLs aren't fetched during
+      // foreignObject rendering, which would otherwise force a fallback face
+      // and change text metrics.
+      const inlinedFontCss = await buildInlinedFontCss();
+      if (inlinedFontCss) {
+        const styleEl = document.createElement("style");
+        styleEl.textContent = inlinedFontCss;
+        const head = clone.querySelector("head");
+        if (head) head.appendChild(styleEl);
+        else clone.insertBefore(styleEl, clone.firstChild);
+      }
+
+      const html = new XMLSerializer().serializeToString(clone);
+      const svg =
+        `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
+        '<foreignObject width="100%" height="100%">' +
+        `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
+        `<div style="position:relative;left:-${scrollX}px;top:-${scrollY}px">` +
+        html +
+        "</div></div></foreignObject></svg>";
+      const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+      const image = new Image();
+      image.onload = function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext("2d").drawImage(image, 0, 0);
+        postResult(canvas.toDataURL("image/png"));
+      };
+      image.onerror = function () {
+        postResult(null);
+      };
+      image.src = svgUrl;
+    } catch (_error) {
+      postResult(null);
+    }
+  }
+
+  window.addEventListener("message", function (event) {
+    if (!event.data) return;
+    // Only accept messages from the direct parent frame. Blocks sibling /
+    // unrelated-window postMessage senders that could otherwise reach us.
+    if (event.source !== window.parent) return;
+
+    const trustedParentOrigin = getTrustedParentOrigin(event);
+    if (!trustedParentOrigin) return;
+    trustedTopOrigin = trustedParentOrigin;
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_START") {
+      scrollForwarding = true;
+      emitScroll();
+      return;
+    }
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_STOP") {
+      scrollForwarding = false;
+      if (scrollRaf) cancelAnimationFrame(scrollRaf);
+      scrollRaf = 0;
+      return;
+    }
+
+    if (event.data.type !== "INLINE_EDIT_CAPTURE_REQUEST") return;
+
+    handleCaptureRequest(event);
+  });
+})();
+
+
+</script></body>
+</html>

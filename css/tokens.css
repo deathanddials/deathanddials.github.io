@@ -1,0 +1,139 @@
+/* ============================================================
+   DEATHANDDIALS — Design Tokens
+   Palette: Near-black obsidian + warm gold/bronze accent
+   Vintage luxury, collector-grade, editorial dark
+   ============================================================ */
+
+:root {
+  /* ── Type Scale (fluid) ────────────────────────────────── */
+  --text-xs:   clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
+  --text-sm:   clamp(0.875rem, 0.8rem  + 0.35vw, 1rem);
+  --text-base: clamp(1rem,     0.95rem + 0.25vw, 1.125rem);
+  --text-lg:   clamp(1.125rem, 1rem    + 0.75vw, 1.5rem);
+  --text-xl:   clamp(1.5rem,   1.2rem  + 1.25vw, 2.25rem);
+  --text-2xl:  clamp(2rem,     1.2rem  + 2.5vw,  3.5rem);
+  --text-3xl:  clamp(2.5rem,   1rem    + 4vw,    5rem);
+  --text-hero: clamp(3rem,     0.5rem  + 7vw,    8rem);
+
+  /* ── Spacing (4px base) ────────────────────────────────── */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* ── Layout ────────────────────────────────────────────── */
+  --content-narrow:  640px;
+  --content-default: 960px;
+  --content-wide:    1200px;
+
+  /* ── Radius ────────────────────────────────────────────── */
+  --radius-sm:   0.25rem;
+  --radius-md:   0.375rem;
+  --radius-lg:   0.5rem;
+  --radius-xl:   0.75rem;
+  --radius-full: 9999px;
+
+  /* ── Transitions ───────────────────────────────────────── */
+  --transition: 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ── Shadows ───────────────────────────────────────────── */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.5);
+  --shadow-lg: 0 16px 48px rgba(0,0,0,0.6);
+  --shadow-gold: 0 0 24px rgba(200,169,110,0.15);
+
+  /* ── Fonts ─────────────────────────────────────────────── */
+  --font-display: 'Cormorant Garamond', 'Georgia', serif;
+  --font-body:    'DM Sans', 'Helvetica Neue', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+}
+
+/* ── LIGHT MODE (default) ──────────────────────────────────── */
+:root, [data-theme="light"] {
+  --color-bg:             #F5F3EE;
+  --color-surface:        #FAF9F6;
+  --color-surface-2:      #FFFFFF;
+  --color-surface-offset: #EDE9E1;
+  --color-border:         #D8D3C8;
+  --color-divider:        #E4E0D8;
+  --color-text:           #1A1714;
+  --color-text-muted:     #6B6760;
+  --color-text-faint:     #ABA89F;
+  --color-text-inverse:   #F5F3EE;
+
+  --color-gold:           #A07830;
+  --color-gold-hover:     #8A6424;
+  --color-gold-light:     #D4AA6A;
+  --color-gold-muted:     #E8D9BC;
+  --color-gold-bg:        #F7F0E4;
+
+  --color-primary:        #A07830;
+  --color-primary-hover:  #8A6424;
+
+  --color-status-avail:   #2D6A3F;
+  --color-status-hold:    #7A5A1A;
+  --color-status-sold:    #6B6760;
+}
+
+/* ── DARK MODE ─────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --color-bg:             #0C0B0A;
+  --color-surface:        #141210;
+  --color-surface-2:      #1A1815;
+  --color-surface-offset: #111009;
+  --color-border:         #2E2C28;
+  --color-divider:        #252320;
+  --color-text:           #E8E4DC;
+  --color-text-muted:     #8A8680;
+  --color-text-faint:     #4A4844;
+  --color-text-inverse:   #0C0B0A;
+
+  --color-gold:           #C8A96E;
+  --color-gold-hover:     #DFC08A;
+  --color-gold-light:     #E8D4A8;
+  --color-gold-muted:     #3A3020;
+  --color-gold-bg:        #1E1A12;
+
+  --color-primary:        #C8A96E;
+  --color-primary-hover:  #DFC08A;
+
+  --color-status-avail:   #4CAF70;
+  --color-status-hold:    #D4A017;
+  --color-status-sold:    #6B6760;
+}
+
+/* ── System preference fallback ────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --color-bg:             #0C0B0A;
+    --color-surface:        #141210;
+    --color-surface-2:      #1A1815;
+    --color-surface-offset: #111009;
+    --color-border:         #2E2C28;
+    --color-divider:        #252320;
+    --color-text:           #E8E4DC;
+    --color-text-muted:     #8A8680;
+    --color-text-faint:     #4A4844;
+    --color-text-inverse:   #0C0B0A;
+    --color-gold:           #C8A96E;
+    --color-gold-hover:     #DFC08A;
+    --color-gold-light:     #E8D4A8;
+    --color-gold-muted:     #3A3020;
+    --color-gold-bg:        #1E1A12;
+    --color-primary:        #C8A96E;
+    --color-primary-hover:  #DFC08A;
+    --color-status-avail:   #4CAF70;
+    --color-status-hold:    #D4A017;
+    --color-status-sold:    #6B6760;
+  }
+}

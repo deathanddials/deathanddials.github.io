@@ -1,0 +1,58 @@
+/* ============================================================
+   DEATHANDDIALS — Scroll Animations & Motion
+   ============================================================ */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 600ms cubic-bezier(0.16,1,0.3,1), transform 600ms cubic-bezier(0.16,1,0.3,1);
+}
+[data-reveal="left"]  { transform: translateX(-24px); }
+[data-reveal="right"] { transform: translateX(24px); }
+[data-reveal="scale"] { transform: scale(0.96); }
+[data-reveal].revealed { opacity: 1; transform: none; }
+
+/* Stagger children */
+[data-reveal-stagger] > * {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 500ms cubic-bezier(0.16,1,0.3,1), transform 500ms cubic-bezier(0.16,1,0.3,1);
+}
+[data-reveal-stagger].revealed > *:nth-child(1)  { transition-delay: 0ms;   opacity: 1; transform: none; }
+[data-reveal-stagger].revealed > *:nth-child(2)  { transition-delay: 80ms;  opacity: 1; transform: none; }
+[data-reveal-stagger].revealed > *:nth-child(3)  { transition-delay: 160ms; opacity: 1; transform: none; }
+[data-reveal-stagger].revealed > *:nth-child(4)  { transition-delay: 240ms; opacity: 1; transform: none; }
+[data-reveal-stagger].revealed > *:nth-child(5)  { transition-delay: 320ms; opacity: 1; transform: none; }
+[data-reveal-stagger].revealed > *:nth-child(6)  { transition-delay: 400ms; opacity: 1; transform: none; }
+
+/* Hero entrance */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200%  0; }
+}
+
+.hero-animate-1 { animation: fadeUp 800ms 100ms both cubic-bezier(0.16,1,0.3,1); }
+.hero-animate-2 { animation: fadeUp 800ms 250ms both cubic-bezier(0.16,1,0.3,1); }
+.hero-animate-3 { animation: fadeUp 800ms 400ms both cubic-bezier(0.16,1,0.3,1); }
+.hero-animate-4 { animation: fadeIn 1000ms 600ms both; }
+
+/* Gold shimmer on hover for special elements */
+.shimmer-hover {
+  background-size: 200% auto;
+  transition: background-position 500ms;
+}
+.shimmer-hover:hover { background-position: right center; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal], [data-reveal-stagger] > * { opacity: 1; transform: none; transition: none; }
+  [data-reveal-stagger].revealed > * { transition-delay: 0ms !important; }
+  .hero-animate-1, .hero-animate-2, .hero-animate-3, .hero-animate-4 { animation: none; }
+}

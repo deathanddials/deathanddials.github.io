@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sell or Trade — DeathAndDials</title>
+  <meta name="description" content="Sell or trade your vintage watch to DeathAndDials. Honest offers, fast response, no runaround.">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css"><link rel="stylesheet" href="css/base.css"><link rel="stylesheet" href="css/nav.css"><link rel="stylesheet" href="css/animations.css">
+  <style>
+    .sell-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: var(--space-16);
+      align-items: start;
+    }
+    @media(max-width: 900px) { .sell-layout { grid-template-columns: 1fr; } }
+
+    .sell-sidebar { position: sticky; top: calc(30px + 65px + var(--space-8)); }
+    @media(max-width: 900px) { .sell-sidebar { position: static; } }
+
+    .sell-sidebar h1 { font-size: var(--text-2xl); margin-bottom: var(--space-4); }
+    .sell-sidebar p { color: var(--color-text-muted); line-height: 1.75; margin-bottom: var(--space-6); }
+
+    /* What we buy chips */
+    .brand-chips {
+      display: flex; flex-wrap: wrap; gap: var(--space-2);
+      margin-bottom: var(--space-8);
+    }
+    .brand-chip {
+      font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--color-text-muted);
+      padding: 0.35em 0.85em;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+    }
+
+    /* Process steps */
+    .process-steps { display: flex; flex-direction: column; gap: 0; margin-bottom: var(--space-8); }
+    .process-step {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: var(--space-4);
+      padding-bottom: var(--space-6);
+      position: relative;
+    }
+    .process-step:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 19px; top: 36px; bottom: 0;
+      width: 1px;
+      background: var(--color-border);
+    }
+    .process-step__num {
+      width: 40px; height: 40px;
+      border: 1px solid color-mix(in srgb, var(--color-gold) 35%, transparent);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: var(--text-base);
+      color: var(--color-gold); flex-shrink: 0;
+      background: var(--color-gold-bg);
+      position: relative; z-index: 1;
+    }
+    .process-step__content { padding-top: var(--space-2); }
+    .process-step__title { font-weight: 600; color: var(--color-text); font-size: var(--text-sm); margin-bottom: var(--space-1); }
+    .process-step__desc { font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.6; }
+
+    /* Form panel */
+    .sell-form-panel {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8) var(--space-8);
+    }
+    .sell-form-panel h2 {
+      font-size: var(--text-xl); margin-bottom: var(--space-2);
+    }
+    .sell-form-panel > p {
+      color: var(--color-text-muted); font-size: var(--text-sm);
+      margin-bottom: var(--space-8);
+    }
+    .form-stack { display: flex; flex-direction: column; gap: var(--space-5); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+    @media(max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+
+    /* Trust row */
+    .sell-trust {
+      display: flex; flex-wrap: wrap; gap: var(--space-6);
+      margin-top: var(--space-6);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--color-border);
+    }
+    .sell-trust__item {
+      display: flex; align-items: center; gap: var(--space-2);
+      font-size: var(--text-xs); letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--color-text-faint);
+    }
+    .sell-trust__item svg { color: var(--color-gold); }
+
+    /* What we buy section */
+    .what-we-buy {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin-bottom: var(--space-8);
+    }
+    .what-we-buy h3 {
+      font-size: var(--text-base); font-weight: 600;
+      color: var(--color-text); margin-bottom: var(--space-4);
+    }
+    .what-we-buy ul {
+      list-style: none; display: flex; flex-direction: column; gap: var(--space-2);
+    }
+    .what-we-buy li {
+      font-size: var(--text-sm); color: var(--color-text-muted);
+      display: flex; align-items: baseline; gap: var(--space-2);
+    }
+    .what-we-buy li::before {
+      content: '—'; color: var(--color-gold); flex-shrink: 0; font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="util-bar"><div class="container util-bar__inner"><nav class="util-bar__links"><a href="https://instagram.com/deathanddials" target="_blank" rel="noopener">Instagram</a><a href="#" target="_blank">eBay</a><a href="#" target="_blank">Whatnot</a></nav><span class="util-bar__note"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Inquiries answered within 24 hours</span></div></div>
+  <header class="site-nav"><div class="container site-nav__inner"><a href="index.html" class="site-nav__logo"><svg viewBox="0 0 32 32" fill="none" width="26" height="26" style="color:var(--color-gold)"><circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1.2"/><circle cx="16" cy="16" r="1.8" fill="currentColor"/><line x1="16" y1="14.2" x2="16" y2="9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="16" y1="16" x2="20.5" y2="16" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.6"/></svg><span class="site-nav__logo-text">DeathAndDials</span></a><ul class="site-nav__links"><li><a href="index.html">Home</a></li><li><a href="inventory.html">Shop</a></li><li><a href="about.html">About</a></li><li><a href="sell-trade.html" class="active">Sell / Trade</a></li><li><a href="contact.html">Contact</a></li></ul><div class="site-nav__actions"><button class="theme-toggle" data-theme-toggle aria-label="Toggle theme"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button><button class="nav-hamburger" data-menu-open aria-label="Open menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div></div></header>
+  <div class="mobile-menu"><button class="mobile-menu__close" data-menu-close><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button><ul class="mobile-menu__links"><li><a href="index.html">Home</a></li><li><a href="inventory.html">Shop</a></li><li><a href="about.html">About</a></li><li><a href="sell-trade.html">Sell / Trade</a></li><li><a href="contact.html">Contact</a></li></ul><div class="mobile-menu__footer"><a href="https://instagram.com/deathanddials" class="btn btn--outline btn--sm" target="_blank">Instagram</a></div></div>
+
+  <main>
+    <div class="page-header">
+      <div class="container">
+        <span class="eyebrow" data-reveal>Sell or Trade</span>
+        <h1 data-reveal>Your watch deserves a straight offer.</h1>
+        <p data-reveal>No lowball games. No week-long silence. You'll hear back within 24–48 hours with a real number or an honest explanation of why it's not a fit right now.</p>
+      </div>
+    </div>
+
+    <section style="padding-top:0">
+      <div class="container">
+        <div class="sell-layout">
+
+          <!-- Sidebar -->
+          <aside class="sell-sidebar" data-reveal="left">
+            <span class="eyebrow">What We Buy</span>
+            <p>American and European vintage from roughly 1930–1980. Mechanical watches in working condition or clearly original examples worth preserving. The kinds of pieces that tell a story.</p>
+
+            <div class="brand-chips">
+              <span class="brand-chip">Hamilton</span>
+              <span class="brand-chip">Bulova</span>
+              <span class="brand-chip">Elgin</span>
+              <span class="brand-chip">Benrus</span>
+              <span class="brand-chip">Longines</span>
+              <span class="brand-chip">Omega</span>
+              <span class="brand-chip">Enicar</span>
+              <span class="brand-chip">Universal Genève</span>
+              <span class="brand-chip">Girard-Perregaux</span>
+              <span class="brand-chip">Waltham</span>
+              <span class="brand-chip">Illinois</span>
+              <span class="brand-chip">Gruen</span>
+            </div>
+
+            <div class="what-we-buy">
+              <h3>Strong candidates</h3>
+              <ul>
+                <li>All-original dials — no reprints, no restored lume</li>
+                <li>Unpolished cases with honest wear</li>
+                <li>Interesting or unusual dials — sector, two-tone, early digital</li>
+                <li>Working mechanical movements</li>
+                <li>Military or field watches from US or European makers</li>
+                <li>Complete sets with original box or papers (adds value)</li>
+              </ul>
+            </div>
+
+            <div class="what-we-buy">
+              <h3>Likely not a fit</h3>
+              <ul>
+                <li>Battery-powered quartz fashion watches</li>
+                <li>Heavily polished or case-refinished examples</li>
+                <li>Watches with replacement dials or heavily restored parts</li>
+                <li>Broken movements with no clear path to service</li>
+                <li>Reproductions or unverifiable pieces</li>
+              </ul>
+            </div>
+
+            <span class="eyebrow" style="margin-top:var(--space-6)">The Process</span>
+            <div class="process-steps">
+              <div class="process-step">
+                <div class="process-step__num">1</div>
+                <div class="process-step__content">
+                  <div class="process-step__title">Submit photos &amp; details</div>
+                  <div class="process-step__desc">Dial, caseback, crown side, any markings. Include what you know about the watch's history.</div>
+                </div>
+              </div>
+              <div class="process-step">
+                <div class="process-step__num">2</div>
+                <div class="process-step__content">
+                  <div class="process-step__title">We review within 24–48 hours</div>
+                  <div class="process-step__desc">You'll get a real response — an offer, a question, or an honest explanation of why it's not for us right now.</div>
+                </div>
+              </div>
+              <div class="process-step">
+                <div class="process-step__num">3</div>
+                <div class="process-step__content">
+                  <div class="process-step__title">Agree on terms</div>
+                  <div class="process-step__desc">Cash purchase or trade credit toward something in our inventory. No pressure either way.</div>
+                </div>
+              </div>
+              <div class="process-step">
+                <div class="process-step__num">4</div>
+                <div class="process-step__content">
+                  <div class="process-step__title">Ship &amp; get paid</div>
+                  <div class="process-step__desc">We cover return shipping if a deal doesn't come together. Payment on receipt and inspection.</div>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Form -->
+          <div data-reveal="right">
+            <div class="sell-form-panel">
+              <h2>Submit Your Watch</h2>
+              <p>Fill in what you know. Photos are the most useful thing — a clear dial shot tells us more than a description. We'll follow up directly.</p>
+
+              <form action="#" method="POST" novalidate>
+                <div class="form-stack">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label class="form-label" for="seller-name">Your Name <span style="color:var(--color-gold)">*</span></label>
+                      <input class="form-input" type="text" id="seller-name" name="name" required placeholder="Your name" autocomplete="name">
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="seller-email">Email <span style="color:var(--color-gold)">*</span></label>
+                      <input class="form-input" type="email" id="seller-email" name="email" required placeholder="your@email.com" autocomplete="email">
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label class="form-label" for="watch-brand">Brand / Maker <span style="color:var(--color-gold)">*</span></label>
+                      <input class="form-input" type="text" id="watch-brand" name="brand" required placeholder="e.g. Hamilton, Omega, Elgin">
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="watch-model">Model or Reference (if known)</label>
+                      <input class="form-input" type="text" id="watch-model" name="model" placeholder="e.g. Khaki, Seamaster, 917">
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label class="form-label" for="watch-era">Approximate Era</label>
+                      <select class="form-select" id="watch-era" name="era">
+                        <option value="">Not sure</option>
+                        <option>1930s</option>
+                        <option>1940s</option>
+                        <option>1950s</option>
+                        <option>1960s</option>
+                        <option>1970s</option>
+                        <option>1980s</option>
+                        <option>Mixed / Unknown</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="watch-running">Does it run?</label>
+                      <select class="form-select" id="watch-running" name="running">
+                        <option value="">Select one</option>
+                        <option>Yes — running well</option>
+                        <option>Yes — but keeping poor time</option>
+                        <option>Intermittently</option>
+                        <option>No — stopped</option>
+                        <option>Not sure</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="watch-asking">Your Asking Price (optional)</label>
+                    <input class="form-input" type="text" id="watch-asking" name="asking_price" placeholder="Leave blank if you want our assessment first">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="watch-interest">Are you looking to sell or trade?</label>
+                    <select class="form-select" id="watch-interest" name="interest">
+                      <option value="">Select one</option>
+                      <option>Sell for cash</option>
+                      <option>Trade toward something in your inventory</option>
+                      <option>Open to either — let's talk</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="watch-description">Tell us about it <span style="color:var(--color-gold)">*</span></label>
+                    <textarea class="form-textarea" id="watch-description" name="description" required style="min-height:160px" placeholder="Condition, what you know about its history, any parts that have been replaced, whether it has box or papers, where it came from. The more detail, the faster we can respond with a serious offer."></textarea>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="watch-photos">Photo Links or Additional Info</label>
+                    <textarea class="form-textarea" id="watch-photos" name="photos" style="min-height:80px" placeholder="Paste Google Drive, Dropbox, or iCloud photo links here — or describe your best shots. We'll ask for more if needed."></textarea>
+                  </div>
+
+                  <button type="submit" class="btn btn--primary btn--lg" style="width:100%">Submit for Review</button>
+                </div>
+              </form>
+
+              <div class="sell-trust">
+                <div class="sell-trust__item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  Response in 24–48 hours
+                </div>
+                <div class="sell-trust__item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                  No obligation to accept
+                </div>
+                <div class="sell-trust__item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  Return shipping covered if no deal
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container"><div class="site-footer__grid"><div class="site-footer__brand"><span class="site-footer__brand-name">DeathAndDials</span><p class="site-footer__brand-desc">Independent vintage watch dealer.</p></div><div class="site-footer__col"><h4>Shop</h4><ul><li><a href="inventory.html">Inventory</a></li><li><a href="sell-trade.html">Sell / Trade</a></li></ul></div><div class="site-footer__col"><h4>Info</h4><ul><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a href="faq.html">FAQ</a></li></ul></div><div class="site-footer__col"><h4>Policies</h4><ul><li><a href="shipping.html">Shipping</a></li><li><a href="returns.html">Returns</a></li></ul></div></div><div class="site-footer__bottom"><span>© 2026 DeathAndDials. All rights reserved.</span><nav class="site-footer__bottom-links"><a href="shipping.html">Shipping</a><a href="returns.html">Returns</a><a href="faq.html">FAQ</a></nav></div></div></footer>
+  <script src="js/main.js"></script>
+<script data-pplx-inline-edit>
+(function () {
+  if (window === window.top) return;
+
+  const allowedParentOrigins = ["https://www.perplexity.ai","https://perplexity.ai","https://testing.perplexity.ai","https://staging.perplexity.ai","https://*.preview.i.perplexity.ai","http://localhost:3000","http://127.0.0.1:3000","http://localhost:5173","http://127.0.0.1:5173"];
+  const MAX_FONT_BYTES = 500 * 1024;
+  const MAX_TOTAL_FONT_BYTES = 2 * 1024 * 1024;
+  let scrollForwarding = false;
+  let scrollRaf = 0;
+  let trustedTopOrigin = null;
+
+  // Allow entries like "https://*.preview.i.perplexity.ai" — the wildcard
+  // matches a single DNS label (no dots), so "https://*.foo" cannot stretch
+  // across multiple labels.
+  function matchesAllowedOrigin(origin) {
+    if (!origin) return false;
+    for (const entry of allowedParentOrigins) {
+      if (!entry.includes("*")) {
+        if (entry === origin) return true;
+        continue;
+      }
+      const pattern = new RegExp(
+        "^" +
+          entry.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^.]+") +
+          "$",
+      );
+      if (pattern.test(origin)) return true;
+    }
+    return false;
+  }
+
+  // Trust decision: when the sender is same-origin-visible (event.origin is a
+  // real origin like https://www.perplexity.ai) we trust event.origin directly.
+  // When event.origin is "null" (opaque broker srcdoc), we fall back to the
+  // broker's stamped `parentOrigin` to identify the top window. The fallback
+  // is claim-only — we rely on the browser's native `targetOrigin` enforcement
+  // on the response path (see postToTrustedTop) to ensure replies can't be
+  // delivered to anyone but the actual top window of that claimed origin.
+  function getTrustedParentOrigin(event) {
+    const forwardedParentOrigin =
+      typeof event.data.parentOrigin === "string" ? event.data.parentOrigin : null;
+    const parentOrigin = event.origin === "null" ? forwardedParentOrigin : event.origin;
+    return matchesAllowedOrigin(parentOrigin) ? parentOrigin : null;
+  }
+
+  // All responses go to window.top with targetOrigin = the allowlisted origin.
+  // An attacker that iframes us inside their own null-origin broker can claim
+  // any parentOrigin they like, but the browser will drop the reply whenever
+  // the real top's origin doesn't match — so the screenshot never leaves.
+  function postToTrustedTop(message) {
+    if (!trustedTopOrigin) return;
+    try {
+      window.top.postMessage(message, trustedTopOrigin);
+    } catch (_error) {}
+  }
+
+  function inlineAll(original, clone) {
+    if (original.nodeType !== 1 || clone.nodeType !== 1) return;
+
+    try {
+      const computedStyle = getComputedStyle(original);
+      // cssText on a computed style is the serialized declaration in modern
+      // Chromium/Safari — a single read beats enumerating ~400 longhand
+      // properties. Firefox returns "" here, so we fall back on empty.
+      const serialized = computedStyle.cssText;
+      if (serialized) {
+        clone.style.cssText = serialized;
+      } else {
+        const parts = new Array(computedStyle.length);
+        for (let index = 0; index < computedStyle.length; index += 1) {
+          const property = computedStyle[index];
+          parts[index] = `${property}:${computedStyle.getPropertyValue(property)};`;
+        }
+        clone.style.cssText = parts.join("");
+      }
+    } catch (_error) {}
+
+    const originalChildren = original.children;
+    const clonedChildren = clone.children;
+    for (
+      let index = 0;
+      index < originalChildren.length && index < clonedChildren.length;
+      index += 1
+    ) {
+      inlineAll(originalChildren[index], clonedChildren[index]);
+    }
+  }
+
+  function extractFontUrl(srcValue) {
+    const matches = [
+      ...srcValue.matchAll(
+        /url\(["']?([^"')]+)["']?\)(?:\s*format\(["']?([^"')]+)["']?\))?/gi,
+      ),
+    ];
+    if (matches.length === 0) return null;
+    const woff2 = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff2"));
+    if (woff2) return woff2[1];
+    const woff = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff"));
+    if (woff) return woff[1];
+    return matches[0][1];
+  }
+
+  // Cache resolved font URL -> data URI across captures. Fonts on a page
+  // essentially never change, and a batch run emits multiple captures back to
+  // back — without this we'd refetch + re-base64 every time.
+  const fontDataUriCache = new Map();
+  const SRC_DECLARATION_RE = /src\s*:\s*[^;}]+/i;
+
+  async function fetchAsDataUri(url) {
+    if (fontDataUriCache.has(url)) return fontDataUriCache.get(url);
+    let dataUri = null;
+    try {
+      const response = await fetch(url, { mode: "cors", credentials: "omit" });
+      if (response.ok) {
+        const blob = await response.blob();
+        if (blob.size <= MAX_FONT_BYTES) {
+          dataUri = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () =>
+              resolve(typeof reader.result === "string" ? reader.result : null);
+            reader.onerror = () => resolve(null);
+            reader.readAsDataURL(blob);
+          });
+        }
+      }
+    } catch (_error) {
+      dataUri = null;
+    }
+    fontDataUriCache.set(url, dataUri);
+    return dataUri;
+  }
+
+  function collectFontFaceRuleTexts() {
+    const rules = [];
+    for (const sheet of document.styleSheets) {
+      let cssRules;
+      try {
+        cssRules = sheet.cssRules;
+      } catch (_error) {
+        continue;
+      }
+      if (!cssRules) continue;
+      for (const rule of cssRules) {
+        const cssText = rule.cssText || "";
+        if (cssText.startsWith("@font-face")) rules.push(cssText);
+      }
+    }
+    return rules;
+  }
+
+  async function buildInlinedFontCss() {
+    const ruleTexts = collectFontFaceRuleTexts();
+    if (ruleTexts.length === 0) return null;
+
+    const resolved = ruleTexts.map((cssText) => {
+      if (!SRC_DECLARATION_RE.test(cssText)) return null;
+      const srcMatch = cssText.match(/src\s*:\s*([^;}]+)[;}]/i);
+      if (!srcMatch) return null;
+      const url = extractFontUrl(srcMatch[1]);
+      if (!url) return null;
+      try {
+        return { cssText, url: new URL(url, document.baseURI).href };
+      } catch (_error) {
+        return null;
+      }
+    });
+
+    const dataUris = await Promise.all(
+      resolved.map((entry) => (entry ? fetchAsDataUri(entry.url) : Promise.resolve(null))),
+    );
+
+    const inlined = [];
+    let totalBytes = 0;
+    for (let index = 0; index < resolved.length; index += 1) {
+      const entry = resolved[index];
+      const dataUri = dataUris[index];
+      if (!entry || !dataUri) continue;
+      const approxBytes = dataUri.length * 0.75;
+      if (totalBytes + approxBytes > MAX_TOTAL_FONT_BYTES) break;
+      totalBytes += approxBytes;
+      inlined.push(entry.cssText.replace(SRC_DECLARATION_RE, `src: url("${dataUri}")`));
+    }
+    return inlined.length > 0 ? inlined.join("\n") : null;
+  }
+
+  function stripExternal(clone) {
+    const images = clone.querySelectorAll("img");
+    for (let index = 0; index < images.length; index += 1) {
+      const src = images[index].getAttribute("src");
+      if (src && !src.startsWith("data:")) images[index].removeAttribute("src");
+    }
+
+    const elements = clone.querySelectorAll("*");
+    for (let index = 0; index < elements.length; index += 1) {
+      const style = elements[index].style.cssText;
+      if (style && style.includes("url(")) {
+        elements[index].style.cssText = style.replace(
+          /url\(["']?(?!data:)[^)"']*["']?\)/gi,
+          "none",
+        );
+      }
+    }
+  }
+
+  function emitScroll() {
+    scrollRaf = 0;
+    if (!scrollForwarding) return;
+    postToTrustedTop({
+      type: "INLINE_EDIT_SCROLL",
+      scrollX: window.scrollX,
+      scrollY: window.scrollY,
+    });
+  }
+
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (!scrollForwarding || scrollRaf) return;
+      scrollRaf = requestAnimationFrame(emitScroll);
+    },
+    { passive: true, capture: true },
+  );
+
+  async function handleCaptureRequest(event) {
+    const requestId = event.data.requestId;
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    function postResult(dataUrl) {
+      postToTrustedTop({
+        type: "INLINE_EDIT_SCREENSHOT_RESULT",
+        requestId,
+        dataUrl,
+        scrollX,
+        scrollY,
+      });
+    }
+
+    try {
+      // Wait for any pending web fonts to resolve so both inline metrics and
+      // the @font-face inlining below see the same loaded faces.
+      if (document.fonts && document.fonts.ready) {
+        try {
+          await document.fonts.ready;
+        } catch (_error) {}
+      }
+
+      const clone = document.documentElement.cloneNode(true);
+      inlineAll(document.documentElement, clone);
+
+      const removedNodes = clone.querySelectorAll("script,link[rel=\"stylesheet\"],style");
+      for (let index = 0; index < removedNodes.length; index += 1) {
+        removedNodes[index].remove();
+      }
+
+      stripExternal(clone);
+
+      // Re-embed web fonts as data-URI @font-face rules so the SVG rasterizer
+      // can resolve them — external font URLs aren't fetched during
+      // foreignObject rendering, which would otherwise force a fallback face
+      // and change text metrics.
+      const inlinedFontCss = await buildInlinedFontCss();
+      if (inlinedFontCss) {
+        const styleEl = document.createElement("style");
+        styleEl.textContent = inlinedFontCss;
+        const head = clone.querySelector("head");
+        if (head) head.appendChild(styleEl);
+        else clone.insertBefore(styleEl, clone.firstChild);
+      }
+
+      const html = new XMLSerializer().serializeToString(clone);
+      const svg =
+        `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
+        '<foreignObject width="100%" height="100%">' +
+        `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
+        `<div style="position:relative;left:-${scrollX}px;top:-${scrollY}px">` +
+        html +
+        "</div></div></foreignObject></svg>";
+      const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+      const image = new Image();
+      image.onload = function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext("2d").drawImage(image, 0, 0);
+        postResult(canvas.toDataURL("image/png"));
+      };
+      image.onerror = function () {
+        postResult(null);
+      };
+      image.src = svgUrl;
+    } catch (_error) {
+      postResult(null);
+    }
+  }
+
+  window.addEventListener("message", function (event) {
+    if (!event.data) return;
+    // Only accept messages from the direct parent frame. Blocks sibling /
+    // unrelated-window postMessage senders that could otherwise reach us.
+    if (event.source !== window.parent) return;
+
+    const trustedParentOrigin = getTrustedParentOrigin(event);
+    if (!trustedParentOrigin) return;
+    trustedTopOrigin = trustedParentOrigin;
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_START") {
+      scrollForwarding = true;
+      emitScroll();
+      return;
+    }
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_STOP") {
+      scrollForwarding = false;
+      if (scrollRaf) cancelAnimationFrame(scrollRaf);
+      scrollRaf = 0;
+      return;
+    }
+
+    if (event.data.type !== "INLINE_EDIT_CAPTURE_REQUEST") return;
+
+    handleCaptureRequest(event);
+  });
+})();
+
+
+</script></body>
+</html>

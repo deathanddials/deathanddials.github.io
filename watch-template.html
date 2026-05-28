@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hamilton Thin-o-matic — DeathAndDials</title>
+  <meta name="description" content="1965 Hamilton Thin-o-matic Model H. Clean original dial, unpolished case, running well. Available for direct purchase or inquiry.">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css"><link rel="stylesheet" href="css/base.css"><link rel="stylesheet" href="css/nav.css"><link rel="stylesheet" href="css/animations.css">
+  <style>
+    .product-layout { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-12); align-items:start; padding-top:calc(30px + 65px + var(--space-16)); }
+    .product-gallery { position:sticky; top:calc(30px+65px+var(--space-8)); }
+    .product-main-img { aspect-ratio:1; background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-xl); overflow:hidden; display:flex; align-items:center; justify-content:center; }
+    .product-thumbs { display:flex; gap:var(--space-3); margin-top:var(--space-3); }
+    .product-thumb { width:72px; height:72px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-md); overflow:hidden; cursor:pointer; transition:border-color var(--transition); display:flex; align-items:center; justify-content:center; }
+    .product-thumb:hover, .product-thumb.active { border-color:var(--color-gold); }
+    .product-detail { padding-bottom:var(--space-16); }
+    .product-breadcrumb { font-size:var(--text-xs); color:var(--color-text-faint); letter-spacing:0.06em; margin-bottom:var(--space-5); display:flex; gap:var(--space-2); align-items:center; flex-wrap:wrap; }
+    .product-breadcrumb a:hover { color:var(--color-gold); }
+    .product-breadcrumb span { color:var(--color-text-faint); }
+    .product-title { font-size:var(--text-2xl); color:var(--color-text); margin-bottom:var(--space-2); }
+    .product-era { font-size:var(--text-base); color:var(--color-text-faint); letter-spacing:0.06em; margin-bottom:var(--space-5); }
+    .product-price-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--space-6); flex-wrap:wrap; gap:var(--space-4); }
+    .product-price { font-family:var(--font-display); font-size:var(--text-2xl); color:var(--color-gold); }
+    .product-bullets { list-style:none; display:flex; flex-direction:column; gap:var(--space-3); margin-bottom:var(--space-8); border:1px solid var(--color-border); border-radius:var(--radius-lg); padding:var(--space-5); background:var(--color-surface); }
+    .product-bullets li { display:flex; gap:var(--space-3); font-size:var(--text-sm); color:var(--color-text-muted); align-items:flex-start; }
+    .product-bullets li::before { content:""; width:5px; height:5px; border-radius:50%; background:var(--color-gold); flex-shrink:0; margin-top:0.55em; }
+    .product-ctas { display:flex; flex-direction:column; gap:var(--space-3); margin-bottom:var(--space-8); }
+    .product-ctas-secondary { display:flex; gap:var(--space-3); flex-wrap:wrap; }
+    .product-section { border-top:1px solid var(--color-border); padding-top:var(--space-8); margin-top:var(--space-8); }
+    .product-section h2 { font-family:var(--font-body); font-size:var(--text-sm); letter-spacing:0.15em; text-transform:uppercase; color:var(--color-gold); font-weight:500; margin-bottom:var(--space-4); }
+    .product-section p { font-size:var(--text-base); color:var(--color-text-muted); line-height:1.75; }
+    .product-disclosure { background:var(--color-gold-bg); border:1px solid color-mix(in srgb,var(--color-gold) 20%,transparent); border-radius:var(--radius-lg); padding:var(--space-5); margin-top:var(--space-4); font-size:var(--text-sm); color:var(--color-text-muted); line-height:1.7; }
+    .mobile-sticky { display:none; position:fixed; bottom:0; left:0; right:0; z-index:50; background:color-mix(in srgb,var(--color-bg) 92%,transparent); backdrop-filter:blur(12px); border-top:1px solid var(--color-border); padding:var(--space-4) var(--space-6); display:none; justify-content:space-between; align-items:center; gap:var(--space-4); }
+    .related-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:var(--space-5); }
+    @media (max-width:900px){ .product-layout{grid-template-columns:1fr;padding-top:calc(30px+65px+var(--space-8));} .product-gallery{position:static;} .related-grid{grid-template-columns:1fr 1fr;} }
+    @media (max-width:600px){ .related-grid{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+  <div class="util-bar"><div class="container util-bar__inner"><nav class="util-bar__links"><a href="https://instagram.com/deathanddials" target="_blank" rel="noopener">Instagram</a><a href="#" target="_blank">eBay</a><a href="#" target="_blank">Whatnot</a><a href="contact.html">Email</a></nav><span class="util-bar__note"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Inquiries answered within 24 hours</span></div></div>
+  <header class="site-nav"><div class="container site-nav__inner"><a href="index.html" class="site-nav__logo"><svg viewBox="0 0 32 32" fill="none" width="26" height="26" style="color:var(--color-gold)"><circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1.2"/><circle cx="16" cy="16" r="1.8" fill="currentColor"/><line x1="16" y1="14.2" x2="16" y2="9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="16" y1="16" x2="20.5" y2="16" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.6"/></svg><span class="site-nav__logo-text">DeathAndDials</span></a><ul class="site-nav__links"><li><a href="index.html">Home</a></li><li><a href="inventory.html" class="active">Shop</a></li><li><a href="about.html">About</a></li><li><a href="sell-trade.html">Sell / Trade</a></li><li><a href="contact.html">Contact</a></li></ul><div class="site-nav__actions"><button class="theme-toggle" data-theme-toggle aria-label="Toggle theme"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button><button class="nav-hamburger" data-menu-open aria-label="Open menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div></div></header>
+  <div class="mobile-menu"><button class="mobile-menu__close" data-menu-close><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button><ul class="mobile-menu__links"><li><a href="index.html">Home</a></li><li><a href="inventory.html">Shop</a></li><li><a href="about.html">About</a></li><li><a href="sell-trade.html">Sell / Trade</a></li><li><a href="contact.html">Contact</a></li></ul><div class="mobile-menu__footer"><a href="https://instagram.com/deathanddials" class="btn btn--outline btn--sm" target="_blank">Instagram</a></div></div>
+
+  <main>
+    <div class="container">
+      <div class="product-layout">
+        <!-- Gallery -->
+        <div class="product-gallery" data-reveal="left">
+          <div class="product-main-img">
+            <svg width="180" height="180" viewBox="0 0 160 160" fill="none" style="color:var(--color-gold);opacity:0.2"><circle cx="80" cy="80" r="72" stroke="currentColor" stroke-width="2"/><circle cx="80" cy="80" r="56" stroke="currentColor" stroke-width="1"/><line x1="80" y1="10" x2="80" y2="22" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><line x1="80" y1="138" x2="80" y2="150" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><line x1="10" y1="80" x2="22" y2="80" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><line x1="138" y1="80" x2="150" y2="80" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="80" cy="80" r="4" fill="currentColor"/><line x1="80" y1="76" x2="80" y2="40" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><line x1="80" y1="80" x2="104" y2="88" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.7"/></svg>
+          </div>
+          <div class="product-thumbs">
+            <div class="product-thumb active"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="color:var(--color-gold);opacity:0.4"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="product-thumb"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="color:var(--color-gold);opacity:0.4"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="product-thumb"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="color:var(--color-gold);opacity:0.4"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <a href="contact.html" class="product-thumb" style="flex-direction:column;gap:2px;font-size:10px;letter-spacing:0.05em;color:var(--color-gold);text-align:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>More</a>
+          </div>
+          <p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-3);text-align:center">Additional photos and video available on request</p>
+        </div>
+
+        <!-- Detail -->
+        <div class="product-detail" data-reveal="right">
+          <div class="product-breadcrumb">
+            <a href="index.html">Home</a><span>›</span>
+            <a href="inventory.html">Shop</a><span>›</span>
+            <a href="inventory.html">Hamilton</a><span>›</span>
+            <span style="color:var(--color-text-muted)">Thin-o-matic</span>
+          </div>
+          <span class="tag tag--available" style="margin-bottom:var(--space-4)">Available</span>
+          <h1 class="product-title">Hamilton Thin-o-matic &middot; Model H</h1>
+          <p class="product-era">Circa 1965 &nbsp;&middot;&nbsp; American-made &nbsp;&middot;&nbsp; Automatic</p>
+          <div class="product-price-row">
+            <span class="product-price">$485</span>
+            <span class="tag tag--gold">Direct Purchase Available</span>
+          </div>
+
+          <ul class="product-bullets" aria-label="Quick summary">
+            <li>Collector-friendly presentation with honest visible aging</li>
+            <li>Original dial — clean surface, strong text retention, no reprint</li>
+            <li>Unpolished case profile with light corner wear consistent with age</li>
+            <li>Movement running well; no known recent service</li>
+            <li>No box or papers — common for daily-worn pieces of this era</li>
+            <li>Additional close-ups and video available on request</li>
+          </ul>
+
+          <div class="product-ctas">
+            <a href="contact.html" class="btn btn--primary btn--lg">Inquire Now</a>
+          </div>
+          <div class="product-ctas-secondary">
+            <a href="https://instagram.com/deathanddials" class="btn btn--outline btn--sm" target="_blank">Message on Instagram</a>
+            <a href="#" class="btn btn--ghost btn--sm" target="_blank">View on eBay</a>
+            <a href="#" class="btn btn--ghost btn--sm" target="_blank">View on Whatnot</a>
+          </div>
+
+          <!-- Description -->
+          <div class="product-section">
+            <h2>About This Watch</h2>
+            <p>This Hamilton Thin-o-matic represents exactly what the brand was doing well in the mid-1960s — a slim automatic movement in a clean dress case designed for American tastes. The Model H reference sits in an accessible sweet spot: interesting enough for collectors but priced for daily wear.</p>
+            <p>It was selected for the qualities that hold up over time: strong original dial, an unpolished case that hasn't been cleaned of its history, and a movement that runs without complaint. These are the details that matter when you're deciding whether a watch is worth living with.</p>
+          </div>
+
+          <!-- Specs -->
+          <div class="product-section">
+            <h2>Specifications</h2>
+            <table class="specs-table" aria-label="Watch specifications">
+              <tr><td>Brand</td><td>Hamilton</td></tr>
+              <tr><td>Model</td><td>Thin-o-matic · Model H</td></tr>
+              <tr><td>Reference</td><td>H-10 Series</td></tr>
+              <tr><td>Era</td><td>Circa 1965</td></tr>
+              <tr><td>Case Size</td><td>34mm</td></tr>
+              <tr><td>Case Material</td><td>Yellow gold-filled</td></tr>
+              <tr><td>Movement</td><td>Cal. 689A · Automatic</td></tr>
+              <tr><td>Bracelet / Strap</td><td>New leather strap (original not present)</td></tr>
+              <tr><td>Crystal</td><td>Acrylic · light surface wear</td></tr>
+              <tr><td>Dial</td><td>Original champagne / silver tone</td></tr>
+              <tr><td>Box / Papers</td><td>None</td></tr>
+              <tr><td>Serial Notes</td><td>Available on request</td></tr>
+            </table>
+          </div>
+
+          <!-- Condition -->
+          <div class="product-section">
+            <h2>Condition &amp; Disclosures</h2>
+            <p>Condition notes matter more than adjectives. Here's what's visible and known:</p>
+            <div class="product-disclosure">
+              <strong style="color:var(--color-text);display:block;margin-bottom:var(--space-3)">Known Details</strong>
+              Dial: Original. Clean surface with strong text and index retention. No reprint, no reluming detected. Light aging consistent with age and era.<br><br>
+              Case: Unpolished. Light corner wear and edge softening consistent with regular use over 60 years. No deep scratches or dings.<br><br>
+              Crystal: Acrylic with light surface wear. Could be replaced if desired (common practice).<br><br>
+              Movement: Running well and setting correctly. No known recent service. Service history not available.<br><br>
+              Strap: Replacement leather. Original not present.
+            </div>
+          </div>
+
+          <!-- Auth -->
+          <div class="product-section">
+            <h2>Authenticity &amp; Buyer Guidance</h2>
+            <p>This watch has been reviewed for visible consistency across the dial, case, reference details, and era-appropriate cues before listing. Buyers should study the photos carefully and ask any questions that matter to their collecting standards. Additional images are available — just ask.</p>
+            <p style="margin-top:var(--space-3)"><a href="faq.html" style="color:var(--color-gold);text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--color-gold) 40%,transparent)">Review our FAQ</a> for information on authenticity, returns, and shipping.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Related -->
+      <section style="margin-top:var(--space-24);padding-top:var(--space-12);border-top:1px solid var(--color-border)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-8)" data-reveal>
+          <h2 style="font-size:var(--text-xl)">More Available Watches</h2>
+          <a href="inventory.html" class="btn btn--outline btn--sm">View All →</a>
+        </div>
+        <div class="related-grid" data-reveal-stagger>
+          <article class="watch-card"><div class="watch-card__img"><div class="watch-card__img-placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="color:var(--color-gold);opacity:0.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div></div><div class="watch-card__body"><div class="watch-card__meta"><span class="watch-card__brand">Enicar</span><span class="tag tag--available">Available</span></div><h3 class="watch-card__name">Sherpa Graph</h3><p class="watch-card__specs">Circa 1968 · 38mm</p><div class="watch-card__footer"><span class="watch-card__price">$1,250</span><a href="watch-template.html" class="btn btn--outline btn--sm">View</a></div></div></article>
+          <article class="watch-card"><div class="watch-card__img"><div class="watch-card__img-placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="color:var(--color-gold);opacity:0.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div></div><div class="watch-card__body"><div class="watch-card__meta"><span class="watch-card__brand">Bulova</span><span class="tag tag--available">Available</span></div><h3 class="watch-card__name">Accutron Spaceview</h3><p class="watch-card__specs">Circa 1966 · 34mm</p><div class="watch-card__footer"><span class="watch-card__price">$620</span><a href="watch-template.html" class="btn btn--outline btn--sm">View</a></div></div></article>
+          <article class="watch-card"><div class="watch-card__img"><div class="watch-card__img-placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="color:var(--color-gold);opacity:0.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div></div><div class="watch-card__body"><div class="watch-card__meta"><span class="watch-card__brand">Benrus</span><span class="tag tag--available">Available</span></div><h3 class="watch-card__name">Sky Chief Date</h3><p class="watch-card__specs">Circa 1972 · 36mm</p><div class="watch-card__footer"><span class="watch-card__price">$340</span><a href="watch-template.html" class="btn btn--outline btn--sm">View</a></div></div></article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="container"><div class="site-footer__grid"><div class="site-footer__brand"><span class="site-footer__brand-name">DeathAndDials</span><p class="site-footer__brand-desc">Independent vintage watch dealer.</p></div><div class="site-footer__col"><h4>Shop</h4><ul><li><a href="inventory.html">Inventory</a></li><li><a href="sell-trade.html">Sell / Trade</a></li></ul></div><div class="site-footer__col"><h4>Info</h4><ul><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a href="faq.html">FAQ</a></li></ul></div><div class="site-footer__col"><h4>Policies</h4><ul><li><a href="shipping.html">Shipping</a></li><li><a href="returns.html">Returns</a></li></ul></div></div><div class="site-footer__bottom"><span>© 2026 DeathAndDials</span><nav class="site-footer__bottom-links"><a href="shipping.html">Shipping</a><a href="returns.html">Returns</a><a href="faq.html">FAQ</a></nav></div></div></footer>
+  <script src="js/main.js"></script>
+<script data-pplx-inline-edit>
+(function () {
+  if (window === window.top) return;
+
+  const allowedParentOrigins = ["https://www.perplexity.ai","https://perplexity.ai","https://testing.perplexity.ai","https://staging.perplexity.ai","https://*.preview.i.perplexity.ai","http://localhost:3000","http://127.0.0.1:3000","http://localhost:5173","http://127.0.0.1:5173"];
+  const MAX_FONT_BYTES = 500 * 1024;
+  const MAX_TOTAL_FONT_BYTES = 2 * 1024 * 1024;
+  let scrollForwarding = false;
+  let scrollRaf = 0;
+  let trustedTopOrigin = null;
+
+  // Allow entries like "https://*.preview.i.perplexity.ai" — the wildcard
+  // matches a single DNS label (no dots), so "https://*.foo" cannot stretch
+  // across multiple labels.
+  function matchesAllowedOrigin(origin) {
+    if (!origin) return false;
+    for (const entry of allowedParentOrigins) {
+      if (!entry.includes("*")) {
+        if (entry === origin) return true;
+        continue;
+      }
+      const pattern = new RegExp(
+        "^" +
+          entry.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^.]+") +
+          "$",
+      );
+      if (pattern.test(origin)) return true;
+    }
+    return false;
+  }
+
+  // Trust decision: when the sender is same-origin-visible (event.origin is a
+  // real origin like https://www.perplexity.ai) we trust event.origin directly.
+  // When event.origin is "null" (opaque broker srcdoc), we fall back to the
+  // broker's stamped `parentOrigin` to identify the top window. The fallback
+  // is claim-only — we rely on the browser's native `targetOrigin` enforcement
+  // on the response path (see postToTrustedTop) to ensure replies can't be
+  // delivered to anyone but the actual top window of that claimed origin.
+  function getTrustedParentOrigin(event) {
+    const forwardedParentOrigin =
+      typeof event.data.parentOrigin === "string" ? event.data.parentOrigin : null;
+    const parentOrigin = event.origin === "null" ? forwardedParentOrigin : event.origin;
+    return matchesAllowedOrigin(parentOrigin) ? parentOrigin : null;
+  }
+
+  // All responses go to window.top with targetOrigin = the allowlisted origin.
+  // An attacker that iframes us inside their own null-origin broker can claim
+  // any parentOrigin they like, but the browser will drop the reply whenever
+  // the real top's origin doesn't match — so the screenshot never leaves.
+  function postToTrustedTop(message) {
+    if (!trustedTopOrigin) return;
+    try {
+      window.top.postMessage(message, trustedTopOrigin);
+    } catch (_error) {}
+  }
+
+  function inlineAll(original, clone) {
+    if (original.nodeType !== 1 || clone.nodeType !== 1) return;
+
+    try {
+      const computedStyle = getComputedStyle(original);
+      // cssText on a computed style is the serialized declaration in modern
+      // Chromium/Safari — a single read beats enumerating ~400 longhand
+      // properties. Firefox returns "" here, so we fall back on empty.
+      const serialized = computedStyle.cssText;
+      if (serialized) {
+        clone.style.cssText = serialized;
+      } else {
+        const parts = new Array(computedStyle.length);
+        for (let index = 0; index < computedStyle.length; index += 1) {
+          const property = computedStyle[index];
+          parts[index] = `${property}:${computedStyle.getPropertyValue(property)};`;
+        }
+        clone.style.cssText = parts.join("");
+      }
+    } catch (_error) {}
+
+    const originalChildren = original.children;
+    const clonedChildren = clone.children;
+    for (
+      let index = 0;
+      index < originalChildren.length && index < clonedChildren.length;
+      index += 1
+    ) {
+      inlineAll(originalChildren[index], clonedChildren[index]);
+    }
+  }
+
+  function extractFontUrl(srcValue) {
+    const matches = [
+      ...srcValue.matchAll(
+        /url\(["']?([^"')]+)["']?\)(?:\s*format\(["']?([^"')]+)["']?\))?/gi,
+      ),
+    ];
+    if (matches.length === 0) return null;
+    const woff2 = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff2"));
+    if (woff2) return woff2[1];
+    const woff = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff"));
+    if (woff) return woff[1];
+    return matches[0][1];
+  }
+
+  // Cache resolved font URL -> data URI across captures. Fonts on a page
+  // essentially never change, and a batch run emits multiple captures back to
+  // back — without this we'd refetch + re-base64 every time.
+  const fontDataUriCache = new Map();
+  const SRC_DECLARATION_RE = /src\s*:\s*[^;}]+/i;
+
+  async function fetchAsDataUri(url) {
+    if (fontDataUriCache.has(url)) return fontDataUriCache.get(url);
+    let dataUri = null;
+    try {
+      const response = await fetch(url, { mode: "cors", credentials: "omit" });
+      if (response.ok) {
+        const blob = await response.blob();
+        if (blob.size <= MAX_FONT_BYTES) {
+          dataUri = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () =>
+              resolve(typeof reader.result === "string" ? reader.result : null);
+            reader.onerror = () => resolve(null);
+            reader.readAsDataURL(blob);
+          });
+        }
+      }
+    } catch (_error) {
+      dataUri = null;
+    }
+    fontDataUriCache.set(url, dataUri);
+    return dataUri;
+  }
+
+  function collectFontFaceRuleTexts() {
+    const rules = [];
+    for (const sheet of document.styleSheets) {
+      let cssRules;
+      try {
+        cssRules = sheet.cssRules;
+      } catch (_error) {
+        continue;
+      }
+      if (!cssRules) continue;
+      for (const rule of cssRules) {
+        const cssText = rule.cssText || "";
+        if (cssText.startsWith("@font-face")) rules.push(cssText);
+      }
+    }
+    return rules;
+  }
+
+  async function buildInlinedFontCss() {
+    const ruleTexts = collectFontFaceRuleTexts();
+    if (ruleTexts.length === 0) return null;
+
+    const resolved = ruleTexts.map((cssText) => {
+      if (!SRC_DECLARATION_RE.test(cssText)) return null;
+      const srcMatch = cssText.match(/src\s*:\s*([^;}]+)[;}]/i);
+      if (!srcMatch) return null;
+      const url = extractFontUrl(srcMatch[1]);
+      if (!url) return null;
+      try {
+        return { cssText, url: new URL(url, document.baseURI).href };
+      } catch (_error) {
+        return null;
+      }
+    });
+
+    const dataUris = await Promise.all(
+      resolved.map((entry) => (entry ? fetchAsDataUri(entry.url) : Promise.resolve(null))),
+    );
+
+    const inlined = [];
+    let totalBytes = 0;
+    for (let index = 0; index < resolved.length; index += 1) {
+      const entry = resolved[index];
+      const dataUri = dataUris[index];
+      if (!entry || !dataUri) continue;
+      const approxBytes = dataUri.length * 0.75;
+      if (totalBytes + approxBytes > MAX_TOTAL_FONT_BYTES) break;
+      totalBytes += approxBytes;
+      inlined.push(entry.cssText.replace(SRC_DECLARATION_RE, `src: url("${dataUri}")`));
+    }
+    return inlined.length > 0 ? inlined.join("\n") : null;
+  }
+
+  function stripExternal(clone) {
+    const images = clone.querySelectorAll("img");
+    for (let index = 0; index < images.length; index += 1) {
+      const src = images[index].getAttribute("src");
+      if (src && !src.startsWith("data:")) images[index].removeAttribute("src");
+    }
+
+    const elements = clone.querySelectorAll("*");
+    for (let index = 0; index < elements.length; index += 1) {
+      const style = elements[index].style.cssText;
+      if (style && style.includes("url(")) {
+        elements[index].style.cssText = style.replace(
+          /url\(["']?(?!data:)[^)"']*["']?\)/gi,
+          "none",
+        );
+      }
+    }
+  }
+
+  function emitScroll() {
+    scrollRaf = 0;
+    if (!scrollForwarding) return;
+    postToTrustedTop({
+      type: "INLINE_EDIT_SCROLL",
+      scrollX: window.scrollX,
+      scrollY: window.scrollY,
+    });
+  }
+
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (!scrollForwarding || scrollRaf) return;
+      scrollRaf = requestAnimationFrame(emitScroll);
+    },
+    { passive: true, capture: true },
+  );
+
+  async function handleCaptureRequest(event) {
+    const requestId = event.data.requestId;
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    function postResult(dataUrl) {
+      postToTrustedTop({
+        type: "INLINE_EDIT_SCREENSHOT_RESULT",
+        requestId,
+        dataUrl,
+        scrollX,
+        scrollY,
+      });
+    }
+
+    try {
+      // Wait for any pending web fonts to resolve so both inline metrics and
+      // the @font-face inlining below see the same loaded faces.
+      if (document.fonts && document.fonts.ready) {
+        try {
+          await document.fonts.ready;
+        } catch (_error) {}
+      }
+
+      const clone = document.documentElement.cloneNode(true);
+      inlineAll(document.documentElement, clone);
+
+      const removedNodes = clone.querySelectorAll("script,link[rel=\"stylesheet\"],style");
+      for (let index = 0; index < removedNodes.length; index += 1) {
+        removedNodes[index].remove();
+      }
+
+      stripExternal(clone);
+
+      // Re-embed web fonts as data-URI @font-face rules so the SVG rasterizer
+      // can resolve them — external font URLs aren't fetched during
+      // foreignObject rendering, which would otherwise force a fallback face
+      // and change text metrics.
+      const inlinedFontCss = await buildInlinedFontCss();
+      if (inlinedFontCss) {
+        const styleEl = document.createElement("style");
+        styleEl.textContent = inlinedFontCss;
+        const head = clone.querySelector("head");
+        if (head) head.appendChild(styleEl);
+        else clone.insertBefore(styleEl, clone.firstChild);
+      }
+
+      const html = new XMLSerializer().serializeToString(clone);
+      const svg =
+        `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
+        '<foreignObject width="100%" height="100%">' +
+        `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
+        `<div style="position:relative;left:-${scrollX}px;top:-${scrollY}px">` +
+        html +
+        "</div></div></foreignObject></svg>";
+      const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+      const image = new Image();
+      image.onload = function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext("2d").drawImage(image, 0, 0);
+        postResult(canvas.toDataURL("image/png"));
+      };
+      image.onerror = function () {
+        postResult(null);
+      };
+      image.src = svgUrl;
+    } catch (_error) {
+      postResult(null);
+    }
+  }
+
+  window.addEventListener("message", function (event) {
+    if (!event.data) return;
+    // Only accept messages from the direct parent frame. Blocks sibling /
+    // unrelated-window postMessage senders that could otherwise reach us.
+    if (event.source !== window.parent) return;
+
+    const trustedParentOrigin = getTrustedParentOrigin(event);
+    if (!trustedParentOrigin) return;
+    trustedTopOrigin = trustedParentOrigin;
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_START") {
+      scrollForwarding = true;
+      emitScroll();
+      return;
+    }
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_STOP") {
+      scrollForwarding = false;
+      if (scrollRaf) cancelAnimationFrame(scrollRaf);
+      scrollRaf = 0;
+      return;
+    }
+
+    if (event.data.type !== "INLINE_EDIT_CAPTURE_REQUEST") return;
+
+    handleCaptureRequest(event);
+  });
+})();
+
+
+</script></body>
+</html>

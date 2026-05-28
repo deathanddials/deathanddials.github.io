@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop — DeathAndDials</title>
+  <meta name="description" content="Browse currently available vintage and pre-owned watches from DeathAndDials. Honest condition notes, real photos, direct purchase paths.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <style>
+    .filter-bar {
+      display: flex; align-items: center; gap: var(--space-3);
+      flex-wrap: wrap; margin-bottom: var(--space-10);
+      padding-bottom: var(--space-6); border-bottom: 1px solid var(--color-border);
+    }
+    .filter-bar__label { font-size: var(--text-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-faint); margin-right: var(--space-2); }
+    [data-filter] {
+      font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.4em 1em; border-radius: var(--radius-full);
+      border: 1px solid var(--color-border); color: var(--color-text-muted);
+      background: transparent; cursor: pointer; transition: all var(--transition);
+    }
+    [data-filter]:hover, [data-filter].active { border-color: var(--color-gold); color: var(--color-gold); background: var(--color-gold-bg); }
+    .filter-bar__sep { width: 1px; height: 20px; background: var(--color-border); margin: 0 var(--space-2); }
+    .results-meta { font-size: var(--text-sm); color: var(--color-text-faint); margin-left: auto; }
+
+    .sourcing-strip {
+      margin-top: var(--space-16);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-10) var(--space-10);
+      display: flex; justify-content: space-between; align-items: center;
+      gap: var(--space-6); flex-wrap: wrap;
+    }
+    .sourcing-strip p { font-size: var(--text-base); color: var(--color-text-muted); max-width: 54ch; }
+    .sourcing-strip strong { color: var(--color-text); }
+
+    .marketplace-row {
+      display: flex; gap: var(--space-4); flex-wrap: wrap;
+      margin-top: var(--space-10); padding-top: var(--space-10);
+      border-top: 1px solid var(--color-border);
+      justify-content: center; align-items: center;
+    }
+    .marketplace-row__label { font-size: var(--text-xs); letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-text-faint); margin-right: var(--space-4); }
+  </style>
+</head>
+<body>
+
+  <div class="util-bar">
+    <div class="container util-bar__inner">
+      <nav class="util-bar__links" aria-label="Marketplace links">
+        <a href="https://instagram.com/deathanddials" target="_blank" rel="noopener"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg> Instagram</a>
+        <a href="#" target="_blank" rel="noopener">eBay</a>
+        <a href="#" target="_blank" rel="noopener">Whatnot</a>
+        <a href="contact.html">Email</a>
+      </nav>
+      <span class="util-bar__note"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Inquiries answered within 24 hours</span>
+    </div>
+  </div>
+
+  <header class="site-nav" role="banner">
+    <div class="container site-nav__inner">
+      <a href="index.html" class="site-nav__logo" aria-label="DeathAndDials home">
+        <svg viewBox="0 0 32 32" fill="none" width="26" height="26" style="color:var(--color-gold)"><circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1.2"/><circle cx="16" cy="16" r="9" stroke="currentColor" stroke-width="0.8" opacity="0.4"/><line x1="16" y1="2" x2="16" y2="6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="16" y1="25.5" x2="16" y2="30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="2" y1="16" x2="6.5" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="25.5" y1="16" x2="30" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="16" cy="16" r="1.8" fill="currentColor"/><line x1="16" y1="14.2" x2="16" y2="9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="16" y1="16" x2="20.5" y2="16" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.6"/></svg>
+        <span class="site-nav__logo-text">DeathAndDials</span>
+      </a>
+      <ul class="site-nav__links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="inventory.html" class="active">Shop</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="sell-trade.html">Sell / Trade</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="site-nav__actions">
+        <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+        <button class="nav-hamburger" data-menu-open aria-label="Open menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-menu" role="dialog" aria-label="Navigation">
+    <button class="mobile-menu__close" data-menu-close aria-label="Close menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <ul class="mobile-menu__links" role="list">
+      <li><a href="index.html">Home</a></li><li><a href="inventory.html">Shop</a></li><li><a href="about.html">About</a></li><li><a href="sell-trade.html">Sell / Trade</a></li><li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="mobile-menu__footer"><a href="https://instagram.com/deathanddials" class="btn btn--outline btn--sm" target="_blank">Instagram</a><a href="#" class="btn btn--ghost btn--sm">eBay Store</a><a href="#" class="btn btn--ghost btn--sm">Whatnot</a></div>
+  </div>
+
+  <main>
+    <div class="page-header nav-offset">
+      <div class="container">
+        <span class="eyebrow">All Watches</span>
+        <h1>Current Inventory</h1>
+        <p>Browse available watches. Each listing includes key specs, honest condition notes, and a direct path to inquire or purchase. Availability changes quickly — if something stands out, reach out.</p>
+      </div>
+    </div>
+
+    <section>
+      <div class="container">
+        <!-- Filter bar -->
+        <div class="filter-bar" role="toolbar" aria-label="Filter inventory">
+          <span class="filter-bar__label">Filter</span>
+          <div data-filter-group>
+            <button class="btn btn--sm active" data-filter="all">All</button>
+            <button class="btn btn--sm" data-filter="available">Available</button>
+            <button class="btn btn--sm" data-filter="hold">On Hold</button>
+            <button class="btn btn--sm" data-filter="sold">Sold</button>
+          </div>
+          <span class="filter-bar__sep" aria-hidden="true"></span>
+          <div data-filter-group>
+            <button class="btn btn--sm active" data-filter="era-all">All Eras</button>
+            <button class="btn btn--sm" data-filter="30s-50s">1930s–50s</button>
+            <button class="btn btn--sm" data-filter="60s-70s">1960s–70s</button>
+            <button class="btn btn--sm" data-filter="80s">1980s</button>
+          </div>
+          <span class="results-meta">6 pieces listed</span>
+        </div>
+
+        <!-- Inventory grid -->
+        <div class="inventory-grid" data-reveal-stagger>
+          <article class="watch-card">
+            <div class="watch-card__img"><div class="watch-card__img-placeholder"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="color:var(--color-gold);opacity:0.25"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div></div>
+            <div class="watch-card__body">
+              <div class="watch-card__meta"><span class="watch-card__brand">Hamilton</span><span class="tag tag--available">Available</span></div>
+              <h3 class="watch-card__name">Thin-o-matic · Model H</h3>
+              <p class="watch-card__specs">Circa 1965 &nbsp;·&nbsp; 34mm &nbsp;·&nbsp; Cal. 689A Auto</p>
+              <p class="watch-card__condition">"Clean original dial, unpolished case, running well. No box or papers."</p>
+              <div class="watch-card__footer"><span class="watch-card__price">$485</span><a href="watch-template.html" class="btn btn--outline btn--sm">View Details</a></div>
+            </div>
+          </article>
+
+          <article class="watch-card">
+            <div class="watch-card__img"><div class="watch-card__img-placeholder"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="color:var(--color-gold);opacity:0.25"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div></div>
+            <div class="watch-card__body">
+              <div class="watch-card__meta"><span class="watch-card__brand">Enicar</span><span class="tag tag--available">Available</span></div>
+              <h3 class="watch-card__name">Sherpa Graph · Ref. 072</h3>
+              <p class="watch-card__specs">Circa 1968 &nbsp;·&nbsp; 38mm &nbsp;·&nbsp; Manual</p>
+              <p class="watch-card__condition">"Even patina across the dial, strong lug definition, light crystal scratch."</p>
+              <div class="watch-card__footer"><span class="watch-card__price">$1,250</span><a href="watch-template.html" class="btn btn--outline btn--sm">View Details</a></div>
+            </div>
+          </article>
+
+          <article class="watch-card">
+            <div class="watch-card__img"><div class="watch-card__img-placeholder"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="color:var(--color-gold);opacity:0.25"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div></div>
+            <div class="watch-card__body">
+              <div class="watch-card__meta"><span class="watch-card__brand">Longines</span><span class="tag tag--hold">On Hold</span></div>
+              <h3 class="watch-card__name">Conquest · First Series</h3>
+              <p class="watch-card__specs">Circa 1954 &nbsp;·&nbsp; 35mm &nbsp;·&nbsp; Cal. 19AS Auto</p>
+              <p class="watch-card__condition">"Original sector dial with lovely tropical character. Strap is a replacement."</p>
+              <div class="watch-card__footer"><span class="watch-card__price">$2,100</span><a href="watch-template.html" class="btn btn--ghost btn--sm">On Hold</a></div>
+            </div>
+          </article>
+
+          <article class="watch-card">
+            <div class="watch-card__img"><div class="watch-card__img-placeholder"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="color:var(--color-gold);opacity:0.25"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div></div>
+            <div class="watch-card__body">
+              <div class="watch-card__meta"><span class="watch-card__brand">Bulova</span><span class="tag tag--available">Available</span></div>
+              <h3 class="watch-card__name">Accutron 214 · Spaceview</h3>
+              <p class="watch-card__specs">Circa 1966 &nbsp;·&nbsp; 34mm &nbsp;·&nbsp; Tuning Fork</p>
+              <p class="watch-card__condition">"Exposed movement display dial, case shows honest wear, ticks accurately."</p>
+              <div class="watch-card__footer"><span class="watch-card__price">$620</span><a href="watch-template.html" class="btn btn--outline btn--sm">View Details</a></div>
+            </div>
+          </article>
+
+          <article class="watch-card">
+            <div class="watch-card__img"><div class="watch-card__img-placeholder"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="color:var(--color-gold);opacity:0.25"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div></div>
+            <div class="watch-card__body">
+              <div class="watch-card__meta"><span class="watch-card__brand">Benrus</span><span class="tag tag--available">Available</span></div>
+              <h3 class="watch-card__name">Sky Chief · Date</h3>
+              <p class="watch-card__specs">Circa 1972 &nbsp;·&nbsp; 36mm &nbsp;·&nbsp; Auto</p>
+              <p class="watch-card__condition">"Strong gilt dial with original lume. Case has light polishing on lugs."</p>
+              <div class="watch-card__footer"><span class="watch-card__price">$340</span><a href="watch-template.html" class="btn btn--outline btn--sm">View Details</a></div>
+            </div>
+          </article>
+
+          <article class="watch-card">
+            <div class="watch-card__img"><div class="watch-card__img-placeholder"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="color:var(--color-gold);opacity:0.25"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div></div>
+            <div class="watch-card__body">
+              <div class="watch-card__meta"><span class="watch-card__brand">Elgin</span><span class="tag tag--sold">Sold</span></div>
+              <h3 class="watch-card__name">Lord Elgin · Grade 720</h3>
+              <p class="watch-card__specs">Circa 1948 &nbsp;·&nbsp; 32mm &nbsp;·&nbsp; Manual</p>
+              <p class="watch-card__condition">"Two-tone case with original stepped bezel. Dial shows honest age and slight fade."</p>
+              <div class="watch-card__footer"><span class="watch-card__price" style="color:var(--color-text-faint)">Sold</span><span class="btn btn--ghost btn--sm" style="opacity:0.5;pointer-events:none">Unavailable</span></div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Sourcing strip -->
+        <div class="sourcing-strip" data-reveal>
+          <div>
+            <span class="eyebrow">Sourcing Request</span>
+            <p><strong>Looking for something specific?</strong> Send a brand, reference, era, or price point and we'll keep you in mind. The best inventory often moves before it makes it to the public listing.</p>
+          </div>
+          <a href="contact.html" class="btn btn--primary" style="flex-shrink:0">Send a Sourcing Request</a>
+        </div>
+
+        <!-- Marketplace row -->
+        <div class="marketplace-row" data-reveal>
+          <span class="marketplace-row__label">Also available on</span>
+          <a href="#" class="btn btn--ghost btn--sm" target="_blank">eBay Store — Full buyer protections</a>
+          <a href="#" class="btn btn--ghost btn--sm" target="_blank">Whatnot — Live drops</a>
+          <a href="https://instagram.com/deathanddials" class="btn btn--ghost btn--sm" target="_blank">Instagram — First-access previews</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div class="site-footer__brand"><span class="site-footer__brand-name">DeathAndDials</span><p class="site-footer__brand-desc">Independent vintage watch dealer. Collector-minded sourcing, honest descriptions, direct communication.</p></div>
+        <div class="site-footer__col"><h4>Shop</h4><ul role="list"><li><a href="inventory.html">Current Inventory</a></li><li><a href="sell-trade.html">Sell or Trade</a></li></ul></div>
+        <div class="site-footer__col"><h4>Info</h4><ul role="list"><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a href="faq.html">FAQ</a></li></ul></div>
+        <div class="site-footer__col"><h4>Policies</h4><ul role="list"><li><a href="shipping.html">Shipping</a></li><li><a href="returns.html">Returns &amp; Refunds</a></li></ul></div>
+      </div>
+      <div class="site-footer__bottom"><span>© 2026 DeathAndDials. All rights reserved.</span><nav class="site-footer__bottom-links"><a href="shipping.html">Shipping</a><a href="returns.html">Returns</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a></nav></div>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+<script data-pplx-inline-edit>
+(function () {
+  if (window === window.top) return;
+
+  const allowedParentOrigins = ["https://www.perplexity.ai","https://perplexity.ai","https://testing.perplexity.ai","https://staging.perplexity.ai","https://*.preview.i.perplexity.ai","http://localhost:3000","http://127.0.0.1:3000","http://localhost:5173","http://127.0.0.1:5173"];
+  const MAX_FONT_BYTES = 500 * 1024;
+  const MAX_TOTAL_FONT_BYTES = 2 * 1024 * 1024;
+  let scrollForwarding = false;
+  let scrollRaf = 0;
+  let trustedTopOrigin = null;
+
+  // Allow entries like "https://*.preview.i.perplexity.ai" — the wildcard
+  // matches a single DNS label (no dots), so "https://*.foo" cannot stretch
+  // across multiple labels.
+  function matchesAllowedOrigin(origin) {
+    if (!origin) return false;
+    for (const entry of allowedParentOrigins) {
+      if (!entry.includes("*")) {
+        if (entry === origin) return true;
+        continue;
+      }
+      const pattern = new RegExp(
+        "^" +
+          entry.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^.]+") +
+          "$",
+      );
+      if (pattern.test(origin)) return true;
+    }
+    return false;
+  }
+
+  // Trust decision: when the sender is same-origin-visible (event.origin is a
+  // real origin like https://www.perplexity.ai) we trust event.origin directly.
+  // When event.origin is "null" (opaque broker srcdoc), we fall back to the
+  // broker's stamped `parentOrigin` to identify the top window. The fallback
+  // is claim-only — we rely on the browser's native `targetOrigin` enforcement
+  // on the response path (see postToTrustedTop) to ensure replies can't be
+  // delivered to anyone but the actual top window of that claimed origin.
+  function getTrustedParentOrigin(event) {
+    const forwardedParentOrigin =
+      typeof event.data.parentOrigin === "string" ? event.data.parentOrigin : null;
+    const parentOrigin = event.origin === "null" ? forwardedParentOrigin : event.origin;
+    return matchesAllowedOrigin(parentOrigin) ? parentOrigin : null;
+  }
+
+  // All responses go to window.top with targetOrigin = the allowlisted origin.
+  // An attacker that iframes us inside their own null-origin broker can claim
+  // any parentOrigin they like, but the browser will drop the reply whenever
+  // the real top's origin doesn't match — so the screenshot never leaves.
+  function postToTrustedTop(message) {
+    if (!trustedTopOrigin) return;
+    try {
+      window.top.postMessage(message, trustedTopOrigin);
+    } catch (_error) {}
+  }
+
+  function inlineAll(original, clone) {
+    if (original.nodeType !== 1 || clone.nodeType !== 1) return;
+
+    try {
+      const computedStyle = getComputedStyle(original);
+      // cssText on a computed style is the serialized declaration in modern
+      // Chromium/Safari — a single read beats enumerating ~400 longhand
+      // properties. Firefox returns "" here, so we fall back on empty.
+      const serialized = computedStyle.cssText;
+      if (serialized) {
+        clone.style.cssText = serialized;
+      } else {
+        const parts = new Array(computedStyle.length);
+        for (let index = 0; index < computedStyle.length; index += 1) {
+          const property = computedStyle[index];
+          parts[index] = `${property}:${computedStyle.getPropertyValue(property)};`;
+        }
+        clone.style.cssText = parts.join("");
+      }
+    } catch (_error) {}
+
+    const originalChildren = original.children;
+    const clonedChildren = clone.children;
+    for (
+      let index = 0;
+      index < originalChildren.length && index < clonedChildren.length;
+      index += 1
+    ) {
+      inlineAll(originalChildren[index], clonedChildren[index]);
+    }
+  }
+
+  function extractFontUrl(srcValue) {
+    const matches = [
+      ...srcValue.matchAll(
+        /url\(["']?([^"')]+)["']?\)(?:\s*format\(["']?([^"')]+)["']?\))?/gi,
+      ),
+    ];
+    if (matches.length === 0) return null;
+    const woff2 = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff2"));
+    if (woff2) return woff2[1];
+    const woff = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff"));
+    if (woff) return woff[1];
+    return matches[0][1];
+  }
+
+  // Cache resolved font URL -> data URI across captures. Fonts on a page
+  // essentially never change, and a batch run emits multiple captures back to
+  // back — without this we'd refetch + re-base64 every time.
+  const fontDataUriCache = new Map();
+  const SRC_DECLARATION_RE = /src\s*:\s*[^;}]+/i;
+
+  async function fetchAsDataUri(url) {
+    if (fontDataUriCache.has(url)) return fontDataUriCache.get(url);
+    let dataUri = null;
+    try {
+      const response = await fetch(url, { mode: "cors", credentials: "omit" });
+      if (response.ok) {
+        const blob = await response.blob();
+        if (blob.size <= MAX_FONT_BYTES) {
+          dataUri = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () =>
+              resolve(typeof reader.result === "string" ? reader.result : null);
+            reader.onerror = () => resolve(null);
+            reader.readAsDataURL(blob);
+          });
+        }
+      }
+    } catch (_error) {
+      dataUri = null;
+    }
+    fontDataUriCache.set(url, dataUri);
+    return dataUri;
+  }
+
+  function collectFontFaceRuleTexts() {
+    const rules = [];
+    for (const sheet of document.styleSheets) {
+      let cssRules;
+      try {
+        cssRules = sheet.cssRules;
+      } catch (_error) {
+        continue;
+      }
+      if (!cssRules) continue;
+      for (const rule of cssRules) {
+        const cssText = rule.cssText || "";
+        if (cssText.startsWith("@font-face")) rules.push(cssText);
+      }
+    }
+    return rules;
+  }
+
+  async function buildInlinedFontCss() {
+    const ruleTexts = collectFontFaceRuleTexts();
+    if (ruleTexts.length === 0) return null;
+
+    const resolved = ruleTexts.map((cssText) => {
+      if (!SRC_DECLARATION_RE.test(cssText)) return null;
+      const srcMatch = cssText.match(/src\s*:\s*([^;}]+)[;}]/i);
+      if (!srcMatch) return null;
+      const url = extractFontUrl(srcMatch[1]);
+      if (!url) return null;
+      try {
+        return { cssText, url: new URL(url, document.baseURI).href };
+      } catch (_error) {
+        return null;
+      }
+    });
+
+    const dataUris = await Promise.all(
+      resolved.map((entry) => (entry ? fetchAsDataUri(entry.url) : Promise.resolve(null))),
+    );
+
+    const inlined = [];
+    let totalBytes = 0;
+    for (let index = 0; index < resolved.length; index += 1) {
+      const entry = resolved[index];
+      const dataUri = dataUris[index];
+      if (!entry || !dataUri) continue;
+      const approxBytes = dataUri.length * 0.75;
+      if (totalBytes + approxBytes > MAX_TOTAL_FONT_BYTES) break;
+      totalBytes += approxBytes;
+      inlined.push(entry.cssText.replace(SRC_DECLARATION_RE, `src: url("${dataUri}")`));
+    }
+    return inlined.length > 0 ? inlined.join("\n") : null;
+  }
+
+  function stripExternal(clone) {
+    const images = clone.querySelectorAll("img");
+    for (let index = 0; index < images.length; index += 1) {
+      const src = images[index].getAttribute("src");
+      if (src && !src.startsWith("data:")) images[index].removeAttribute("src");
+    }
+
+    const elements = clone.querySelectorAll("*");
+    for (let index = 0; index < elements.length; index += 1) {
+      const style = elements[index].style.cssText;
+      if (style && style.includes("url(")) {
+        elements[index].style.cssText = style.replace(
+          /url\(["']?(?!data:)[^)"']*["']?\)/gi,
+          "none",
+        );
+      }
+    }
+  }
+
+  function emitScroll() {
+    scrollRaf = 0;
+    if (!scrollForwarding) return;
+    postToTrustedTop({
+      type: "INLINE_EDIT_SCROLL",
+      scrollX: window.scrollX,
+      scrollY: window.scrollY,
+    });
+  }
+
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (!scrollForwarding || scrollRaf) return;
+      scrollRaf = requestAnimationFrame(emitScroll);
+    },
+    { passive: true, capture: true },
+  );
+
+  async function handleCaptureRequest(event) {
+    const requestId = event.data.requestId;
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    function postResult(dataUrl) {
+      postToTrustedTop({
+        type: "INLINE_EDIT_SCREENSHOT_RESULT",
+        requestId,
+        dataUrl,
+        scrollX,
+        scrollY,
+      });
+    }
+
+    try {
+      // Wait for any pending web fonts to resolve so both inline metrics and
+      // the @font-face inlining below see the same loaded faces.
+      if (document.fonts && document.fonts.ready) {
+        try {
+          await document.fonts.ready;
+        } catch (_error) {}
+      }
+
+      const clone = document.documentElement.cloneNode(true);
+      inlineAll(document.documentElement, clone);
+
+      const removedNodes = clone.querySelectorAll("script,link[rel=\"stylesheet\"],style");
+      for (let index = 0; index < removedNodes.length; index += 1) {
+        removedNodes[index].remove();
+      }
+
+      stripExternal(clone);
+
+      // Re-embed web fonts as data-URI @font-face rules so the SVG rasterizer
+      // can resolve them — external font URLs aren't fetched during
+      // foreignObject rendering, which would otherwise force a fallback face
+      // and change text metrics.
+      const inlinedFontCss = await buildInlinedFontCss();
+      if (inlinedFontCss) {
+        const styleEl = document.createElement("style");
+        styleEl.textContent = inlinedFontCss;
+        const head = clone.querySelector("head");
+        if (head) head.appendChild(styleEl);
+        else clone.insertBefore(styleEl, clone.firstChild);
+      }
+
+      const html = new XMLSerializer().serializeToString(clone);
+      const svg =
+        `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
+        '<foreignObject width="100%" height="100%">' +
+        `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
+        `<div style="position:relative;left:-${scrollX}px;top:-${scrollY}px">` +
+        html +
+        "</div></div></foreignObject></svg>";
+      const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+      const image = new Image();
+      image.onload = function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext("2d").drawImage(image, 0, 0);
+        postResult(canvas.toDataURL("image/png"));
+      };
+      image.onerror = function () {
+        postResult(null);
+      };
+      image.src = svgUrl;
+    } catch (_error) {
+      postResult(null);
+    }
+  }
+
+  window.addEventListener("message", function (event) {
+    if (!event.data) return;
+    // Only accept messages from the direct parent frame. Blocks sibling /
+    // unrelated-window postMessage senders that could otherwise reach us.
+    if (event.source !== window.parent) return;
+
+    const trustedParentOrigin = getTrustedParentOrigin(event);
+    if (!trustedParentOrigin) return;
+    trustedTopOrigin = trustedParentOrigin;
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_START") {
+      scrollForwarding = true;
+      emitScroll();
+      return;
+    }
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_STOP") {
+      scrollForwarding = false;
+      if (scrollRaf) cancelAnimationFrame(scrollRaf);
+      scrollRaf = 0;
+      return;
+    }
+
+    if (event.data.type !== "INLINE_EDIT_CAPTURE_REQUEST") return;
+
+    handleCaptureRequest(event);
+  });
+})();
+
+
+</script></body>
+</html>
