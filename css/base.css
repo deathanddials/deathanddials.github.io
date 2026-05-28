@@ -219,7 +219,7 @@ section { padding-block: clamp(var(--space-16), 8vw, var(--space-32)); }
 
 /* ── Page header ─────────────────────────────────────────── */
 .page-header {
-  padding-top: calc(var(--nav-offset) + var(--space-16));
+  padding-top: calc(95px + var(--space-16));
   padding-bottom: var(--space-16);
   border-bottom: 1px solid var(--color-border);
   margin-bottom: var(--space-16);
