@@ -16,7 +16,7 @@
     }
     @media(max-width: 900px) { .sell-layout { grid-template-columns: 1fr; } }
 
-    .sell-sidebar { position: sticky; top: calc(30px + 65px + var(--space-8)); }
+    .sell-sidebar { position: sticky; top: calc(var(--nav-offset) + var(--space-8)); }
     @media(max-width: 900px) { .sell-sidebar { position: static; } }
 
     .sell-sidebar h1 { font-size: var(--text-2xl); margin-bottom: var(--space-4); }

@@ -17,7 +17,7 @@
     @media(max-width: 900px) { .policy-layout { grid-template-columns: 1fr; } }
     .policy-sidebar {
       position: sticky;
-      top: calc(30px + 65px + var(--space-8));
+      top: calc(var(--nav-offset) + var(--space-8));
       display: flex;
       flex-direction: column;
       gap: var(--space-3);
@@ -52,8 +52,8 @@
     .prose h2::before {
       content: '';
       display: block;
-      height: calc(30px + 65px + var(--space-8));
-      margin-top: calc(-1 * (30px + 65px + var(--space-8)));
+      height: calc(var(--nav-offset) + var(--space-8));
+      margin-top: calc(-1 * (var(--nav-offset) + var(--space-8)));
       visibility: hidden;
       pointer-events: none;
     }

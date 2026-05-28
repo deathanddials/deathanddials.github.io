@@ -35,6 +35,11 @@
   --content-default: 960px;
   --content-wide:    1200px;
 
+  /* ── Nav heights ───────────────────────────────────────── */
+  --util-bar-h: 30px;
+  --site-nav-h: 65px;
+  --nav-offset: calc(var(--util-bar-h) + var(--site-nav-h));
+
   /* ── Radius ────────────────────────────────────────────── */
   --radius-sm:   0.25rem;
   --radius-md:   0.375rem;
